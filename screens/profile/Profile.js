@@ -15,11 +15,10 @@ import React, { useContext } from "react";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Headering from "../../components/Headering";
-import adjustColor from "../../constants/adjustColor";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 
-const Profile = ({ navigation, route }) => {
+const Profile = ({ navigation }) => {
   const { authState, signOut } = useContext(AuthContext);
   const { userData } = authState;
   const { colors } = useContext(ColorContext);
@@ -103,8 +102,8 @@ const Profile = ({ navigation, route }) => {
           </HStack>
           <Cext
             textDecorationLine={"underline"}
-            bold
-            color={adjustColor(colors.textLight, -20)}
+            medium
+            color={colors.textGray}
             onPress={() => navigation.navigate("EditProfile")}
           >
             Selengkapnya
@@ -120,7 +119,7 @@ const Profile = ({ navigation, route }) => {
           >
             <HStack alignItems={"center"}>
               <Icon as={Ionicons} name="log-out" color={"red.600"} mr={2} />
-              <Cext bold color={colors.red} fontSize={12}>
+              <Cext bold color={"red.600"} fontSize={12}>
                 KELUAR
               </Cext>
             </HStack>

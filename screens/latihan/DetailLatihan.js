@@ -5,7 +5,6 @@ import {
   Divider,
   HStack,
   Icon,
-  Modal,
   Pressable,
   ScrollView,
   Stack,
@@ -13,7 +12,6 @@ import {
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
 
-import LottieView from "lottie-react-native";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import adjustColor from "../../constants/adjustColor";
@@ -21,7 +19,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 import { useCountdownTimer } from "../../helper/timeHelper";
 
-export default DetailLatihan = ({ navigation, route }) => {
+const DetailLatihan = ({ navigation, route }) => {
   const { signOut } = useContext(AuthContext);
   const { tit } = route.params;
   const { timeLeft } = useCountdownTimer();
@@ -31,7 +29,6 @@ export default DetailLatihan = ({ navigation, route }) => {
       navigation.goBack(); // Navigate back when time is 00:01
     }
   }, [timeLeft, navigation]);
-  const [jawaban, setJawaban] = useState(null);
 
   const page = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
@@ -56,13 +53,12 @@ export default DetailLatihan = ({ navigation, route }) => {
   ];
   // Store the selected options as an array
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [showModal, setShowModal] = useState(true);
 
   const handleOptionPress = (option) => {
     if (selectedOptions.includes(option.label)) {
       // If the option is already selected, remove it
       setSelectedOptions(selectedOptions.filter((o) => o !== option.label));
-    } else if (selectedOptions.length < 2) {
+    } else if (selectedOptions.length < 1) {
       // If less than two options are selected, add the new option
       setSelectedOptions([...selectedOptions, option.label]);
     } else {
@@ -90,36 +86,6 @@ export default DetailLatihan = ({ navigation, route }) => {
 
   return (
     <Board>
-      <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <Modal.Content maxWidth="400px" bg={colors.primary}>
-          <Modal.CloseButton _icon={{ color: "white" }} />
-
-          <Modal.Body>
-            <Center>
-              <Cext color="white" black fontSize={20} mb={2}>
-                {tit}
-              </Cext>{" "}
-              <LottieView
-                autoPlay
-                style={{
-                  width: 200,
-                  height: 200,
-                }}
-                // Find more Lottie files at https://lottiefiles.com/featured
-                source={require("../../assets/images/exam.json")}
-              />
-              <Cext color="white" fontSize={16} textAlign="justify">
-                Velit commodo ut ipsum voluptate qui eiusmod deserunt
-                adipisicing eu Lorem est non tempor. Dolore excepteur aliqua
-                fugiat incididunt proident cupidatat enim non sunt. Officia
-              </Cext>
-              <Cext color="white" mt={12}>
-                selamat mengerjakan
-              </Cext>
-            </Center>
-          </Modal.Body>
-        </Modal.Content>
-      </Modal>
       <Box>
         <HStack
           p={4}
@@ -149,11 +115,6 @@ export default DetailLatihan = ({ navigation, route }) => {
           </HStack>
 
           <HStack alignSelf={"flex-end"} space={2} m={2}>
-            <Pressable>
-              <Box bg={"white"} shadow={3} p={2} borderRadius={"md"}>
-                <Icon as={Ionicons} name="search" />
-              </Box>
-            </Pressable>
             <Pressable>
               <Box bg={"white"} shadow={3} p={2} borderRadius={"md"}>
                 <Icon as={Ionicons} name="text" />
@@ -328,3 +289,4 @@ export default DetailLatihan = ({ navigation, route }) => {
     </Board>
   );
 };
+export default DetailLatihan;

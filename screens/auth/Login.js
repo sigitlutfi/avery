@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { Box, Button, Center, Icon, Image, Input, VStack } from "native-base";
 import { useContext, useState } from "react";
@@ -17,7 +17,7 @@ function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useContext(AuthContext);
-  const { colors } = useContext(ColorContext);
+  const { mode, colors } = useContext(ColorContext);
   const { config } = useContext(ConfigContext);
   const handleLogin = () => {
     console.log("Attempting to sign in with:", { username, password });
@@ -36,10 +36,13 @@ function Login({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <StatusBar backgroundColor={colors.bg} />
+      <StatusBar
+        backgroundColor={colors.bg}
+        style={mode === "dark" ? "light" : "dark"}
+      />
       <Board>
         <Box flex={1}>
-          <Box bg={colors.box} mt={"40%"} mx={6} px={4} borderRadius={"xl"}>
+          <Box bg={colors.box} mt={"25%"} mx={6} px={4} borderRadius={"xl"}>
             <VStack space={4}>
               <Center h={120} w={240} alignSelf={"center"} mt={-60}>
                 <Image
@@ -49,6 +52,12 @@ function Login({ navigation }) {
                   alt=""
                 />
               </Center>
+              <Cext black alignSelf={"center"} fontSize={16}>
+                {config.name_app}
+              </Cext>
+              <Cext bold alignSelf={"center"} mb={2} fontSize={14}>
+                {config.subname_app}
+              </Cext>
               <Cext fontSize={16} bold>
                 Masuk
               </Cext>
@@ -66,9 +75,7 @@ function Login({ navigation }) {
                   bg={"gray.200"}
                   placeholder="Kata Sandi"
                   borderRadius={"xl"}
-                  InputRightElement={
-                    <Icon as={FontAwesome6} name="eye" mr={2} />
-                  }
+                  InputRightElement={<Icon as={Ionicons} name="eye" mr={2} />}
                 ></Input>
               </Box>
               <Cext

@@ -7,17 +7,15 @@ import {
   Pressable,
   Stack,
 } from "native-base";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Cext from "../../components/Cext";
 import Headering from "../../components/Headering";
 import { ColorContext } from "../../contexts/ColorContext";
 
-const Voucher = ({ navigation, route }) => {
-  const [checked, setChecked] = useState([]);
+const Voucher = () => {
   const { colors } = useContext(ColorContext);
-  const [checktot, setChecktot] = useState(false);
-  const [text, setText] = React.useState("");
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <Headering tit="Voucher" />

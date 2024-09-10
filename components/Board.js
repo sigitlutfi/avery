@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ColorContext } from "../contexts/ColorContext"; // Adjust the path as needed
 
 const Board = ({ children, style }) => {
-  const { colors, mode } = useContext(ColorContext);
+  const { colors } = useContext(ColorContext);
 
   return (
     <SafeAreaView

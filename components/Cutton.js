@@ -121,8 +121,8 @@ const Cutton = ({
               variant === "outline"
                 ? backgroundColor
                 : variant === "ghost"
-                ? colors.primary
-                : "white"
+                  ? colors.primary
+                  : "white"
             }
             fontWeight="bold"
             fontSize={fontSize}

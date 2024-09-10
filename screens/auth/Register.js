@@ -89,7 +89,7 @@ function Register({ navigation }) {
                 borderColor={colors.primary}
               >
                 <Cext bold color={"white"}>
-                  Masuk
+                  Daftar
                 </Cext>
               </Button>
               <Box>
@@ -108,16 +108,11 @@ function Register({ navigation }) {
               </Box>
 
               <Button
-                bg={"white"}
+                bg={colors.lime}
                 borderRadius={"xl"}
-                borderWidth={2}
-                _text={{ color: "gray.800" }}
+                _text={{ color: "white" }}
                 leftIcon={
-                  <Icon
-                    as={FontAwesome6}
-                    name="google"
-                    color={colors.primary}
-                  />
+                  <Icon as={FontAwesome6} name="google" color={"white"} />
                 }
               >
                 Daftar menggunakan Google
@@ -131,15 +126,16 @@ function Register({ navigation }) {
               >
                 Anda sudah punya akun ?
               </Cext>
+
               <Button
-                bg={colors.primary}
                 borderRadius={"xl"}
+                variant={"outline"}
                 borderWidth={2}
-                borderColor={colors.primary}
+                borderColor={colors.accent}
                 mb={4}
-                onPress={() => navigation.navigate("Register")}
+                onPress={() => navigation.goBack()}
               >
-                <Cext bold color={"white"}>
+                <Cext bold color={colors.accent}>
                   Login sekarang
                 </Cext>
               </Button>

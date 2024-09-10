@@ -50,7 +50,7 @@ const Header = () => {
           </Stack>
         </HStack>
         <HStack alignItems={"center"} space={2}>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate("Help")}>
             <Icon
               name="alert-circle-outline"
               as={Ionicons}
@@ -81,14 +81,7 @@ const Header = () => {
             />
           </Pressable>
           <Pressable onPress={() => navigation.navigate("Keranjang")}>
-            <Center bg={colors.accent} p={1} borderRadius={"md"}>
-              <Icon
-                name="cart-outline"
-                as={Ionicons}
-                size={6}
-                color={"white"}
-              />
-            </Center>
+            <Icon name="cart-outline" as={Ionicons} size={7} color={"white"} />
           </Pressable>
         </HStack>
       </HStack>

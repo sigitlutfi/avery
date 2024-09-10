@@ -10,6 +10,7 @@ const lightModeColors = {
   bg: "#f4f4f5",
   fg: "#000000",
   textLight: "#000000",
+  textGray: "#a1a1aa",
   textDark: "#FFFFFF",
   box: "#FFFFFF",
   ...defaultColors,
@@ -19,6 +20,7 @@ const darkModeColors = {
   bg: "#121212",
   fg: "#FFFFFF",
   textLight: "#FFFFFF",
+  textGray: "#a1a1aa",
   textDark: "#000000",
   box: adjustColor("#121212", 80), // 20% lighter than bg
   ...darkcolors,
@@ -28,6 +30,7 @@ const amoledModeColors = {
   bg: "#000000",
   fg: "#FFFFFF",
   textLight: "#FFFFFF",
+  textGray: "#a1a1aa",
   textDark: "#000000",
   box: "#202020", // 20% lighter than bg
   ...darkcolors,

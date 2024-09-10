@@ -1,20 +1,22 @@
 // src/screens/SettingsScreen.js
 import { LinearGradient } from "expo-linear-gradient";
 import * as SecureStore from "expo-secure-store";
-import { Box, Pressable, ScrollView, Stack } from "native-base";
+import { Box, Pressable, ScrollView, Stack, Toast } from "native-base";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Animated, StyleSheet } from "react-native";
 
-import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Cext from "../../components/Cext";
 import Cutton from "../../components/Cutton";
+import Headering from "../../components/Headering";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
+import { ConfigContext } from "../../contexts/ConfigContext";
 
 const Setting = () => {
   const { colors, changeColors, mode, changeMode } = useContext(ColorContext);
   const { reOnBoarding } = useContext(AuthContext);
+  const { fontFamily, changeFontFamily } = useContext(ConfigContext);
   const [modes, setModes] = useState(mode);
 
   // const animatedValue = useRef(
@@ -43,22 +45,22 @@ const Setting = () => {
   const animatedValue = useRef(new Animated.Value(getModeValue(modes))).current;
 
   // Local state to track the currently selected color palette
-  const [selectedPalette, setSelectedPalette] = useState(null);
 
   const colorPalettes = [
-    { primary: "#0171CD", accent: "#FD7F31" },
-    { primary: "#89ABE3", accent: "#EA738D" },
-    { primary: "#A1BE95", accent: "#F98866" },
-    { primary: "#735DA5", accent: "#2AB7CA" },
-    { primary: "#20948B", accent: "#6AB187" },
-    { primary: "#002C54", accent: "#C5001A" },
+    { primary: "#006BB6", accent: "#FF7F50" },
+    { primary: "#1E3A8A", accent: "#F59E0B" }, // Deep blue with a vibrant yellow
+    { primary: "#4F46E5", accent: "#EC4899" }, // Cool blue with a bright pink
+    { primary: "#10B981", accent: "#FBBF24" }, // Fresh green with a warm yellow
+    { primary: "#6366F1", accent: "#F472B6" }, // Soft blue with a soft pink
+    { primary: "#3B82F6", accent: "#F97316" }, // Bright blue with a bold orange
+    { primary: "#34D399", accent: "#FF67A0" }, // Mint green with a playful pink
   ];
 
   const handlePalettePress = (palette) => {
     // Update the local state with the selected palette
-    setSelectedPalette(palette);
-
+    console.log("aw");
     // Call the context function to update the global color palette
+    Toast.show({ title: "Ganti", backgroundColor: palette.primary });
     changeColors(palette);
   };
 
@@ -67,7 +69,7 @@ const Setting = () => {
       await SecureStore.setItemAsync("timeLeft", "21:19");
       alert("Success", "Item has been saved successfully!");
     } catch (error) {
-      alert("Error", "Failed to save item.");
+      alert("Error", "Failed to save item.", error);
     }
   };
   const handleModeChange = (newMode) => {
@@ -95,7 +97,7 @@ const Setting = () => {
       duration: 500,
       useNativeDriver: false,
     }).start();
-  }, [modes]);
+  }, [animatedValue, modes]);
 
   const backgroundColor = animatedValue.interpolate({
     inputRange: [0, 0.5, 1],
@@ -108,10 +110,7 @@ const Setting = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar
-        backgroundColor={getColorForMode(modes)}
-        style={modes === "light" ? "dark" : "light"}
-      />
+      <Headering tit={"Setting (experimental !)"} />
 
       <Animated.View style={{ backgroundColor, flex: 1 }}>
         <Stack space={4} m={4}>
@@ -137,7 +136,17 @@ const Setting = () => {
             </ScrollView>
           </Box>
           <Cext>Font Fams</Cext>
-          <Cext bold>ProductSans</Cext>
+          {fontFamily.map((v, i) => (
+            <Cext
+              key={i}
+              bold
+              fontFamily={v.fam + "-Bold"}
+              onPress={() => changeFontFamily(v.fam)}
+              color={v.active ? colors.primary : colors.textLight}
+            >
+              {v.fam}
+            </Cext>
+          ))}
           <Cutton
             full
             title={"Set Timer Countdown user"}

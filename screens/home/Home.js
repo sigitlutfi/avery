@@ -15,22 +15,21 @@ import {
   Text,
 } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
-import { Dimensions } from "react-native";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Cutton from "../../components/Cutton";
+import Cwipper from "../../components/Cwipper";
 import Header from "../../components/Header";
 import { getRandomColor } from "../../constants/getRandomColor";
-import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 import useHttpHelper from "../../helper/httpHelp";
 import formatRupiah from "../../helper/rupiah";
 
 const Home = ({ navigation }) => {
-  const { POST, GET, snackbarComponent } = useHttpHelper();
-  const { signOut } = useContext(AuthContext);
+  const { GET } = useHttpHelper();
+
   const { colors } = useContext(ColorContext);
-  const w80 = (Dimensions.get("screen").width / 100) * 80;
+  //const w80 = (Dimensions.get("screen").width / 100) * 80;
   const blue = colors.primary;
   const oren = colors.accent;
   const [mopen, setMopen] = useState(true);
@@ -42,14 +41,14 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const data = await GET("/berita");
-      console.log(data);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await GET("/berita");
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch data:", error);
+  //   }
+  // };
   return (
     <NativeBaseProvider>
       <Modal isOpen={mopen} onClose={() => setMopen(false)}>
@@ -71,90 +70,80 @@ const Home = ({ navigation }) => {
       <StatusBar bg="indigo.600" />
       <Board>
         <Header />
+
         <ScrollView>
-          <Box w={"100%"} h={220} mt={4}>
-            <ScrollView
-              horizontal
+          <Cwipper autoplay={true} interval={3000} loop={true}>
+            <Pressable
               flex={1}
-              showsHorizontalScrollIndicator={false}
+              bg={"gray.400"}
+              overflow={"hidden"}
+              m={4}
+              onPress={() => alert("action")}
+              borderRadius={"2xl"}
             >
-              <Box
-                w={w80}
-                h={220}
-                bg={"gray.400"}
-                overflow={"hidden"}
-                ml={4}
-                borderRadius={"2xl"}
-              >
-                <Pressable
-                  position={"absolute"}
-                  right={0}
-                  bottom={0}
-                  onPress={() => alert("action")}
+              <Pressable position={"absolute"} right={0} bottom={0}>
+                <Box
+                  bg={colors.accent}
+                  px={4}
+                  py={1}
+                  borderTopLeftRadius={"xl"}
                 >
-                  <Box
-                    bg={colors.accent}
-                    px={4}
-                    py={1}
-                    borderTopLeftRadius={"xl"}
-                  >
-                    <Cext bold color="white" fontSize={12}>
-                      Selengkapnya
-                    </Cext>
-                  </Box>
-                </Pressable>
-              </Box>
-              <Box
-                w={w80}
-                h={220}
-                bg={"pink.400"}
-                overflow={"hidden"}
-                ml={4}
-                borderRadius={"2xl"}
+                  <Cext bold color="white" fontSize={12}>
+                    Selengkapnya
+                  </Cext>
+                </Box>
+              </Pressable>
+            </Pressable>
+            <Pressable
+              flex={1}
+              bg={"gray.400"}
+              overflow={"hidden"}
+              m={4}
+              onPress={() => alert("action")}
+              borderRadius={"2xl"}
+            >
+              <Pressable
+                position={"absolute"}
+                right={0}
+                bottom={0}
+                onPress={() => alert("action")}
               >
-                <Pressable
-                  position={"absolute"}
-                  right={0}
-                  bottom={0}
-                  onPress={() => alert("action")}
+                <Box
+                  bg={colors.accent}
+                  px={4}
+                  py={1}
+                  borderTopLeftRadius={"xl"}
                 >
-                  <Box
-                    bg={colors.accent}
-                    px={4}
-                    py={1}
-                    borderTopLeftRadius={"xl"}
-                  >
-                    <Cext bold color="white" fontSize={12}>
-                      Selengkapnya
-                    </Cext>
-                  </Box>
-                </Pressable>
-              </Box>
-              <Box
-                w={w80}
-                h={220}
-                bg={"green.400"}
-                overflow={"hidden"}
-                ml={4}
-                borderRadius={"2xl"}
-              >
-                <Pressable position={"absolute"} right={0} bottom={0}>
-                  <Box
-                    bg={colors.accent}
-                    px={4}
-                    py={1}
-                    borderTopLeftRadius={"xl"}
-                  >
-                    <Cext bold color="white" fontSize={12}>
-                      Selengkapnya
-                    </Cext>
-                  </Box>
-                </Pressable>
-              </Box>
-            </ScrollView>
-          </Box>
+                  <Cext bold color="white" fontSize={12}>
+                    Selengkapnya
+                  </Cext>
+                </Box>
+              </Pressable>
+            </Pressable>
+            <Pressable
+              flex={1}
+              bg={"gray.400"}
+              overflow={"hidden"}
+              m={4}
+              onPress={() => alert("action")}
+              borderRadius={"2xl"}
+            >
+              <Pressable position={"absolute"} right={0} bottom={0}>
+                <Box
+                  bg={colors.accent}
+                  px={4}
+                  py={1}
+                  borderTopLeftRadius={"xl"}
+                >
+                  <Cext bold color="white" fontSize={12}>
+                    Selengkapnya
+                  </Cext>
+                </Box>
+              </Pressable>
+            </Pressable>
+          </Cwipper>
           <Box>
-            <Cext bold mb={2} fontSize={22} ml={4} mt={4}>
+            <Cext bold mb={2} fontSize={22} ml={4}>
               Promo
             </Cext>
             <FlatList
@@ -239,13 +228,15 @@ const Home = ({ navigation }) => {
                         uri: "https://png.pngtree.com/png-clipart/20230621/original/pngtree-special-promo-banner-design-for-sale-and-offer-vector-png-image_9193515.png",
                       }}
                     />
-                    <Cext bold>PAKET BELAJAR {index + 1}</Cext>
+                    <Cext medium fontSize={13}>
+                      PAKET BELAJAR {index + 1}
+                    </Cext>
                     {item.diskon ? (
                       <Text strikeThrough fontSize={12}>
                         {formatRupiah(item.harganormal)}
                       </Text>
                     ) : null}
-                    <Cext bold fontSize={12}>
+                    <Cext fontSize={12}>
                       {item.diskon
                         ? formatRupiah(
                             item.harganormal -
@@ -259,7 +250,7 @@ const Home = ({ navigation }) => {
             />
           </Box>
           <Cext bold mb={2} fontSize={22} ml={4} mt={4}>
-            Fitur baru
+            Info terbaru
           </Cext>
           <Box w={"100%"} px={4} h={120} mb={2}>
             <Image
@@ -280,7 +271,7 @@ const Home = ({ navigation }) => {
             data={[{}, {}, {}]}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => (
+            renderItem={({ index }) => (
               <Center
                 w={120}
                 bg={getRandomColor()}

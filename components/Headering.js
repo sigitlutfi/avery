@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { ColorContext } from "../contexts/ColorContext";
 import Cext from "./Cext";
 
-const Headering = ({ tit, right, gray }) => {
+const Headering = ({ tit, right }) => {
   const navigation = useNavigation();
   const { colors } = useContext(ColorContext);
   const title = tit ? tit : "";

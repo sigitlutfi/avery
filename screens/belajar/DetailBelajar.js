@@ -1,49 +1,10 @@
 import { Box } from "native-base";
-import React, { useContext, useRef } from "react";
-import { Dimensions } from "react-native";
+import React, { useRef } from "react";
 import WebView from "react-native-webview";
 import Board from "../../components/Board";
 import Headering from "../../components/Headering";
-import { AuthContext } from "../../contexts/AuthContext";
 
-export default DetailBelajar = ({ navigation, route }) => {
-  const { signOut } = useContext(AuthContext);
-
-  const w80 = (Dimensions.get("screen").width / 100) * 80;
-  const blue = "#0171CD";
-  const oren = "#FD7F31";
-  const soal = [
-    {
-      id: 2141241234,
-      soal: [
-        {
-          tipe: "Cext bold fontSize={22}",
-          value: "Perhatikan gambar rantai makanan berikut ini!",
-        },
-        {
-          tipe: "gambar",
-          value: "http://localhost/gambar/example.jpeg",
-        },
-        {
-          tipe: "text",
-          value:
-            "Berdasarkan gambar diatas, pernyataan yang paling tepat mengambarkan kondisi rantai makanan jika katak mengalami kepunahan adalah...",
-        },
-      ],
-      jawaban: [
-        {
-          id: 2134124,
-          label: "A",
-          urai: "Belalang menjadi berkurang",
-        },
-        {
-          id: 2134125,
-          label: "B",
-          urai: "Belalang menjadi burung",
-        },
-      ],
-    },
-  ];
+const DetailBelajar = () => {
   const webviewRef = useRef(null);
   const handleMessage = (event) => {
     const content = event.nativeEvent.data;
@@ -91,3 +52,4 @@ export default DetailBelajar = ({ navigation, route }) => {
     </Board>
   );
 };
+export default DetailBelajar;

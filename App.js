@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import * as Font from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import React, { useContext, useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import Register from "./screens/auth/Register";
 import Belajar from "./screens/belajar/Belajar";
 import DetailBelajar from "./screens/belajar/DetailBelajar";
 import Subkategori from "./screens/belajar/Subkategori";
+import Help from "./screens/home/Help";
 import Home from "./screens/home/Home";
 import Notification from "./screens/home/Notification";
 import DetailLatihan from "./screens/latihan/DetailLatihan";
@@ -27,6 +27,7 @@ import Cekot from "./screens/paket/Cekot";
 import Keranjang from "./screens/paket/Keranjang";
 import Paket from "./screens/paket/Paket";
 import Voucher from "./screens/paket/Voucher";
+import Preexam from "./screens/Preexam";
 import EditProfile from "./screens/profile/EditProfile";
 import Profile from "./screens/profile/Profile";
 import Setting from "./screens/profile/Setting";
@@ -52,7 +53,6 @@ const StackLatihan = () => (
 const StackHome = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="Notification" component={Notification} />
   </Stack.Navigator>
 );
 
@@ -95,6 +95,8 @@ const BottomTab = () => (
 const AppStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeStack" component={BottomTab} />
+    <Stack.Screen name="Notification" component={Notification} />
+    <Stack.Screen name="Preexam" component={Preexam} />
     <Stack.Screen name="DetailLatihan" component={DetailLatihan} />
     <Stack.Screen name="Summary" component={Summary} />
     <Stack.Screen name="KunciJawaban" component={KunciJawabanAgian} />
@@ -104,6 +106,7 @@ const AppStack = () => (
     <Stack.Screen name="Keranjang" component={Keranjang} />
     <Stack.Screen name="Voucher" component={Voucher} />
     <Stack.Screen name="Cekot" component={Cekot} />
+    <Stack.Screen name="Help" component={Help} />
   </Stack.Navigator>
 );
 
@@ -120,28 +123,11 @@ const OnBoardingStack = () => (
   </Stack.Navigator>
 );
 
-const fetchFonts = () => {
-  return Font.loadAsync({
-    "ProductSans-Black": require("./assets/fonts/ProductSans-Black.ttf"),
-    "ProductSans-BlackItalic": require("./assets/fonts/ProductSans-BlackItalic.ttf"),
-    "ProductSans-BoldItalic": require("./assets/fonts/ProductSans-BoldItalic.ttf"),
-    "ProductSans-Bold": require("./assets/fonts/ProductSans-Bold.ttf"),
-    "ProductSans-Italic": require("./assets/fonts/ProductSans-Italic.ttf"),
-    "ProductSans-Light": require("./assets/fonts/ProductSans-Light.ttf"),
-    "ProductSans-LightItalic": require("./assets/fonts/ProductSans-LightItalic.ttf"),
-    "ProductSans-MediumItalic": require("./assets/fonts/ProductSans-MediumItalic.ttf"),
-    "ProductSans-Medium": require("./assets/fonts/ProductSans-Medium.ttf"),
-    "ProductSans-Regular": require("./assets/fonts/ProductSans-Regular.ttf"),
-    "ProductSans-Thin": require("./assets/fonts/ProductSans-Thin.ttf"),
-    "ProductSans-ThinItalic": require("./assets/fonts/ProductSans-ThinItalic.ttf"),
-  });
-};
-
 const App = () => {
   const { authState } = useContext(AuthContext);
   const { colors } = useContext(ColorContext);
   const { isConfigLoading } = useContext(ConfigContext);
-  const [fontLoaded, setFontLoaded] = useState(false);
+
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
@@ -149,22 +135,11 @@ const App = () => {
       "In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.",
       "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
     ]);
-    const prepareApp = async () => {
-      try {
-        // Load custom fonts
-        await fetchFonts();
-        setFontLoaded(true); // Check onboarding state
-      } catch (error) {
-        console.warn(error);
-      }
-    };
-
-    prepareApp();
   }, []);
 
   useEffect(() => {
     // Only hide splash screen when fonts are loaded and loading state is done
-    if (authState.isLoading || !fontLoaded || isConfigLoading) {
+    if (authState.isLoading || isConfigLoading) {
       setShowSplash(true);
     } else {
       const timer = setTimeout(() => {
@@ -173,7 +148,7 @@ const App = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [isConfigLoading, authState.isLoading, fontLoaded]);
+  }, [isConfigLoading, authState.isLoading]);
 
   if (showSplash) {
     return <Splash onTimeout={() => setShowSplash(false)} />;

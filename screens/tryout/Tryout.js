@@ -1,16 +1,17 @@
-import { Center, Text } from "native-base";
+import { Center } from "native-base";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import Board from "../../components/Board";
+import Cext from "../../components/Cext";
 import Header from "../../components/Header";
 
-const Tryout = ({ navigation, route }) => {
+const Tryout = () => {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <Board>
       <Header />
       <Center flex={1}>
-        <Text>tryout</Text>
+        <Cext>tryout</Cext>
       </Center>
-    </SafeAreaView>
+    </Board>
   );
 };
 

@@ -12,11 +12,9 @@ import React, { useContext } from "react";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Headering from "../../components/Headering";
-import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 
-export default SubKategori = ({ navigation, route }) => {
-  const { signOut } = useContext(AuthContext);
+const SubKategori = ({ navigation, route }) => {
   const { item } = route.params;
   const { colors } = useContext(ColorContext);
 
@@ -54,9 +52,11 @@ export default SubKategori = ({ navigation, route }) => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    item.open
-                      ? navigation.navigate("DetailBelajar")
-                      : alert("package locked");
+                    if (item.open) {
+                      navigation.navigate("DetailBelajar");
+                    } else {
+                      alert("Package locked");
+                    }
                   }}
                 >
                   <HStack
@@ -98,3 +98,4 @@ export default SubKategori = ({ navigation, route }) => {
     </Board>
   );
 };
+export default SubKategori;

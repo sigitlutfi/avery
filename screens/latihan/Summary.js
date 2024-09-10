@@ -18,7 +18,7 @@ import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import { ColorContext } from "../../contexts/ColorContext";
 
-const Summary = ({ navigation, route }) => {
+const Summary = ({ navigation }) => {
   const { colors } = useContext(ColorContext);
   const [showModal, setShowModal] = useState(true);
 

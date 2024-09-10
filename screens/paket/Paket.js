@@ -1,27 +1,17 @@
 // App.js
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import PagerView from "react-native-pager-view";
 
 import { Box, Stack, Text } from "native-base";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import AnimatedAccordionList from "../../components/Accordion";
 import Board from "../../components/Board";
 import Header from "../../components/Header";
-import { SegmentedCon } from "../../components/SegmentedCon";
-import { ColorContext } from "../../contexts/ColorContext";
+import { SegmentedControl } from "../../components/SegmentedCon";
 
 const Paket = () => {
-  const { colors } = useContext(ColorContext);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [data, setData] = useState([{}, {}, {}]);
 
-  const [expandedIndex, setExpandedIndex] = useState(null);
-
-  // Handler to toggle the expanded state
-  const handlePress = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
   const pagerRef = React.useRef(null);
 
   useEffect(() => {
@@ -35,7 +25,7 @@ const Paket = () => {
       <Header />
 
       <Box alignItems={"center"} justifyContent={"center"}>
-        <SegmentedCon
+        <SegmentedControl
           options={["Paket Aktif", "Riwayat"]}
           selectedIndex={selectedIndex}
           onOptionPress={(option) => console.log("Selected option:", option)}
@@ -77,27 +67,5 @@ const Paket = () => {
     </Board>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  pagerView: {
-    flex: 1,
-  },
-  page: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    marginLeft: 40,
-  },
-  segmentedControl: {
-    width: "100%",
-    height: 40,
-
-    marginBottom: 20,
-  },
-});
 
 export default Paket;

@@ -1,6 +1,5 @@
 // App.js
-import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import React from "react";
 
 import { Ionicons } from "@expo/vector-icons";
 import {
@@ -14,26 +13,11 @@ import {
   Stack,
   Text,
 } from "native-base";
-import { useContext } from "react";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Headering from "../../components/Headering";
-import { ColorContext } from "../../contexts/ColorContext";
 
-const Notification = ({ navigation }) => {
-  const { colors } = useContext(ColorContext);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [data, setData] = useState([{}, {}, {}]);
-
-  const handleSegmentChange = (index) => {
-    setSelectedIndex(index);
-    pagerRef.current.setPage(index);
-  };
-  const [expanded, setExpanded] = useState(false);
-
-  const handlePress = () => setExpanded(!expanded);
-  const pagerRef = React.useRef(null);
-
+const Notification = () => {
   return (
     <Board>
       <Headering
@@ -66,7 +50,7 @@ const Notification = ({ navigation }) => {
       <FlatList
         px={4}
         data={[{}, {}, {}, {}, {}, {}]}
-        renderItem={({ item, index }) => (
+        renderItem={({ index }) => (
           <Pressable mb={4} onPress={() => alert("this action")} key={index}>
             <HStack>
               <Image
@@ -106,21 +90,5 @@ const Notification = ({ navigation }) => {
     </Board>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  pagerView: {
-    flex: 1,
-  },
-  page: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    marginLeft: 40,
-  },
-});
 
 export default Notification;

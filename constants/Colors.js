@@ -1,5 +1,5 @@
 // src/constants/colors.js
-import adjustColor from "../constants/adjustColor"; // Import the adjustColor helper
+// Import the adjustColor helper
 
 export const colors = {
   primary: "#006BB6", // Deep blue
@@ -38,7 +38,8 @@ export const colors = {
   plum: "#8E4585", // Deep plum
 };
 
-export const darkcolors = Object.keys(colors).reduce((acc, key) => {
-  acc[key] = adjustColor(colors[key], -15); // Darken each color by 15%
-  return acc;
-}, {});
+// export const darkcolors = Object.keys(colors).reduce((acc, key) => {
+//   acc[key] = adjustColor(colors[key], -15); // Darken each color by 15%
+//   return acc;
+// }, {});
+export const darkcolors = colors;

@@ -21,7 +21,7 @@ import { ColorContext } from "../../contexts/ColorContext";
 import { replaceWithNestedStack } from "../../helper/replaceAndClearStack";
 import { useCountdownTimer } from "../../helper/timeHelper";
 
-export default KunciJawaban = ({ navigation, route }) => {
+const KunciJawaban = ({ navigation }) => {
   const { signOut } = useContext(AuthContext);
 
   const { timeLeft } = useCountdownTimer();
@@ -31,7 +31,6 @@ export default KunciJawaban = ({ navigation, route }) => {
       navigation.goBack(); // Navigate back when time is 00:01
     }
   }, [timeLeft, navigation]);
-  const [jawaban, setJawaban] = useState(null);
 
   const page = [
     { salah: true },
@@ -81,7 +80,7 @@ export default KunciJawaban = ({ navigation, route }) => {
     }
   };
 
-  const [counter, setCounter] = useState(0);
+  const [_counter, setCounter] = useState(0);
 
   useEffect(() => {
     // Function to increment the counter
@@ -156,10 +155,10 @@ export default KunciJawaban = ({ navigation, route }) => {
                   p={2}
                   bg={
                     selectedOptions.includes(v.label)
-                      ? colors.red
-                      : i == 2
-                      ? colors.lime
-                      : colors.box
+                      ? adjustColor(colors.red, -20)
+                      : i === 2
+                        ? colors.green
+                        : colors.box
                   }
                   shadow={3}
                   borderRadius={"lg"}
@@ -172,7 +171,7 @@ export default KunciJawaban = ({ navigation, route }) => {
                       mr={4}
                       ml={2}
                       color={
-                        selectedOptions.includes(v.label) || i == 2
+                        selectedOptions.includes(v.label) || i === 2
                           ? colors.textDark
                           : colors.textLight
                       }
@@ -183,7 +182,7 @@ export default KunciJawaban = ({ navigation, route }) => {
                       flexShrink={1}
                       flexWrap={"wrap"}
                       color={
-                        selectedOptions.includes(v.label) || i == 2
+                        selectedOptions.includes(v.label) || i === 2
                           ? colors.textDark
                           : colors.textLight
                       }
@@ -277,7 +276,7 @@ export default KunciJawaban = ({ navigation, route }) => {
             {page.map((v, i) => (
               <Pressable key={i} mr={2}>
                 <Center
-                  bg={v.salah ? colors.red : colors.lime}
+                  bg={v.salah ? adjustColor(colors.red, -20) : colors.green}
                   w={i === 4 ? 10 : 8}
                   h={i === 4 ? 10 : 8}
                   borderRadius={"lg"}
@@ -298,3 +297,4 @@ export default KunciJawaban = ({ navigation, route }) => {
     </Board>
   );
 };
+export default KunciJawaban;

@@ -17,11 +17,9 @@ import Headering from "../../components/Headering";
 import { ColorContext } from "../../contexts/ColorContext";
 import formatRupiah from "../../helper/rupiah";
 
-const Cekot = ({ navigation, route }) => {
-  const [checked, setChecked] = useState([]);
+const Cekot = ({ navigation }) => {
   const { colors } = useContext(ColorContext);
-  const [checktot, setChecktot] = useState(false);
-  const [text, setText] = React.useState("");
+
   const [isOpen, setIsOpen] = useState(true);
   const [payment, setPayment] = useState([
     {

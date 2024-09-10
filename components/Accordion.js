@@ -39,7 +39,7 @@ const AccordionItem = ({ item, children }) => {
             color={colors.primary}
             size={7}
           />
-          <Cext bold ml={2} fontSize={22}>
+          <Cext bold ml={2} fontSize={20}>
             {item.title}
           </Cext>
         </HStack>

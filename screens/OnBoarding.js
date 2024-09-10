@@ -6,9 +6,11 @@ import Cext from "../components/Cext";
 import Cutton from "../components/Cutton";
 import { AuthContext } from "../contexts/AuthContext";
 import { ColorContext } from "../contexts/ColorContext";
+import { ConfigContext } from "../contexts/ConfigContext";
 
-const OnboardingScreen = ({ navigation }) => {
+const OnboardingScreen = () => {
   const { colors } = useContext(ColorContext);
+  const { config } = useContext(ConfigContext);
   const { reOnBoarding } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -57,6 +59,17 @@ const OnboardingScreen = ({ navigation }) => {
             alignItems="center"
           >
             <Image
+              source={{ uri: config.icon }}
+              alt="Onboarding Image"
+              size="md"
+              mb={2}
+              borderRadius={10}
+            />
+            <Cext bold fontSize={16}>
+              {config.name_app}
+            </Cext>
+            <Cext mb={8}>{config.name_app}</Cext>
+            <Image
               source={{ uri: item.image }}
               alt="Onboarding Image"
               size="2xl"
@@ -89,11 +102,14 @@ const OnboardingScreen = ({ navigation }) => {
               <Center mt={6}>
                 <Cutton
                   bg={colors.accent}
-                  title={"Yuk Mulai"}
                   onPress={() => {
                     handleGetStart();
                   }}
-                ></Cutton>
+                >
+                  <Cext fontSize={20} bold color={"white"}>
+                    Yuk Mulai
+                  </Cext>
+                </Cutton>
               </Center>
             )}
           </Box>

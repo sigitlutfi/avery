@@ -1,40 +1,69 @@
 import axios from "axios";
 import { Toast } from "native-base";
-import React, { useContext, useState } from "react";
-import { Snackbar } from "react-native-paper"; // Import Snackbar from react-native-paper
-import { colors } from "../constants/Colors";
-import { AuthContext } from "../contexts/AuthContext"; // Adjust the import path based on your project structure
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { ColorContext } from "../contexts/ColorContext";
 
 const useHttpHelper = () => {
-  // Get the token from AuthContext
-  const { authState } = useContext(AuthContext);
+  const { authState, signOut } = useContext(AuthContext);
+  const { colors } = useContext(ColorContext);
+
   const token = authState.userToken;
-  const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
 
-  // Default configurations
   const defaultConfig = {
-    baseURL: "https://kip.kapuaskab.go.id/api", // Default base URL
+    baseURL: "https://simppd-mappi.simda.net",
   };
 
-  const showErrorSnackbar = (message) => {
-    setSnackbarMessage(message);
-    setSnackbarVisible(true);
+  const handleError = (error, c) => {
+    let errorMessage = "Something went wrong";
+    let statusCode = 500; // Default status code for server error
+
+    if (error.response) {
+      // The request was made and the server responded with a status code outside of 2xx
+      errorMessage = error.response.data?.message || error.message;
+      statusCode = error.response.status;
+    } else if (error.request) {
+      // The request was made but no response was received
+      errorMessage = "No response received from the server.";
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      errorMessage = error.message;
+    }
+
+    if (c) {
+      console.error("Error details:", error); // Log full error if 'c' is set
+    }
+
+    // Optionally, display a toast or snackbar for the user
+
+    if (error.message === "Token Tidak Valid") {
+      Toast.show({
+        title: errorMessage,
+      });
+      signOut();
+    } else {
+      Toast.show({
+        title: errorMessage,
+        backgroundColor: colors.red,
+      });
+    }
+    return { error: errorMessage, status: statusCode };
   };
 
-  const showSuccessSnackbar = (message) => {
-    setSnackbarMessage(message);
-    setSnackbarVisible(true);
-  };
-
-  // Helper function for POST requests
-  const POST = async (url, json = {}, data = [], headers = {}) => {
+  const POST = async ({
+    url,
+    json = {},
+    data = [],
+    headers = {},
+    c = false,
+    tos = true,
+  }) => {
     try {
       const finalUrl = defaultConfig.baseURL + url;
       const finalHeaders = {
-        Authorization: `Bearer ${token}`, // Include token from AuthContext
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        ...headers, // Merge any custom headers passed in
+        ...headers,
       };
 
       let requestData;
@@ -53,51 +82,80 @@ const useHttpHelper = () => {
       const response = await axios.post(finalUrl, requestData, {
         headers: finalHeaders,
       });
-      console.log(response);
-      return response.data;
+
+      if (c) {
+        console.log(response); // Log the full response if 'c' is set
+      }
+
+      if (response.data.status === "success") {
+        tos &&
+          Toast.show({
+            title: response.data.messages ? response.data.messages : "Berhasil",
+            backgroundColor: colors.green,
+          });
+
+        return { data: response.data, status: response.status };
+      } else {
+        return handleError(
+          {
+            message: response.data.messages ? response.data.message : "Error -",
+          },
+          c
+        );
+      }
     } catch (error) {
-      console.error("Error in POST request:", error);
-      showErrorSnackbar(error.message); // Show error message in Snackbar
-      throw error;
+      return handleError(error, c);
     }
   };
 
-  // Helper function for GET requests
-  const GET = async (url, params = {}, headers = {}) => {
+  const GET = async ({
+    url,
+    params = {},
+    headers = {},
+    c = false,
+    tos = true,
+  }) => {
     try {
       const finalUrl = defaultConfig.baseURL + url;
       const finalHeaders = {
-        Authorization: `Bearer ${token}`, // Include token from AuthContext
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-        ...headers, // Merge any custom headers passed in
+        ...headers,
       };
 
       const response = await axios.get(finalUrl, {
         headers: finalHeaders,
-        params,
+        params, // Pass the params object here
       });
-      console.log(response);
-      Toast.show({ title: "Berhasil", backgroundColor: colors.green }); // Show error message in Snackbar
 
-      return response.data;
+      if (c) {
+        console.log(response); // Log the full response if 'c' is set
+      }
+
+      if (response.data.status === "success") {
+        tos &&
+          Toast.show({
+            title: response.data.messages ? response.data.messages : "Berhasil",
+            backgroundColor: colors.green,
+          });
+
+        return { data: response.data, status: response.status };
+      } else {
+        return handleError(
+          {
+            message: response.data.messages
+              ? response.data.messages
+              : "Error -",
+          },
+          c
+        );
+      }
     } catch (error) {
-      console.error("Error in GET request:", error);
-      showErrorSnackbar(error.message); // Show error message in Snackbar
-      throw error;
+      return handleError(error, c);
     }
   };
 
-  const snackbarComponent = (
-    <Snackbar
-      visible={snackbarVisible}
-      onDismiss={() => setSnackbarVisible(false)}
-      duration={3000} // Customize the duration as needed
-    >
-      {snackbarMessage}
-    </Snackbar>
-  );
-
-  return { POST, GET, snackbarComponent };
+  return { POST, GET };
 };
 
 export default useHttpHelper;

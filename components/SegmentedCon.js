@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import {
   StyleSheet,
@@ -5,7 +6,6 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-
 import Animated, {
   useAnimatedStyle,
   withTiming,
@@ -13,7 +13,7 @@ import Animated, {
 import { ColorContext } from "../contexts/ColorContext";
 import Cext from "./Cext";
 
-const SegmentedCon = React.memo(
+const SegmentedControl = React.memo(
   ({ options, selectedIndex, onOptionPress, setSelectedIndex }) => {
     const { width: windowWidth } = useWindowDimensions();
     const { colors } = useContext(ColorContext);
@@ -55,26 +55,36 @@ const SegmentedCon = React.memo(
             styles.activeBox,
           ]}
         />
-        {options.map((option, index) => {
-          return (
-            <TouchableOpacity
-              onPress={() => handlePress(option, index)}
-              key={index}
-              style={[
-                {
-                  width: itemWidth,
-                },
-                styles.labelContainer,
-              ]}
-            >
-              <Cext style={styles.label}>{option}</Cext>
-            </TouchableOpacity>
-          );
-        })}
+        {options.map((option, index) => (
+          <TouchableOpacity
+            onPress={() => handlePress(option, index)}
+            key={index}
+            style={[
+              {
+                width: itemWidth,
+              },
+              styles.labelContainer,
+            ]}
+            accessibilityRole="button"
+            accessibilityLabel={option}
+            accessibilityState={{ selected: selectedIndex === index }}
+          >
+            <Cext style={styles.label}>{option}</Cext>
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
 );
+
+SegmentedControl.displayName = "SegmentedControl";
+
+SegmentedControl.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedIndex: PropTypes.number.isRequired,
+  onOptionPress: PropTypes.func,
+  setSelectedIndex: PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -83,15 +93,16 @@ const styles = StyleSheet.create({
   },
   activeBox: {
     position: "absolute",
-
     borderBottomWidth: 3,
-
     height: "100%",
   },
-  labelContainer: { justifyContent: "center", alignItems: "center" },
+  labelContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   label: {
     fontSize: 16,
   },
 });
 
-export { SegmentedCon };
+export { SegmentedControl };

@@ -10,17 +10,13 @@ import {
   Stack,
 } from "native-base";
 import React, { useContext } from "react";
-import { Dimensions } from "react-native";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Header from "../../components/Header";
 
-import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 
 const Belajar = ({ navigation }) => {
-  const { signOut } = useContext(AuthContext);
-  const w80 = (Dimensions.get("screen").width / 100) * 80;
   const { colors } = useContext(ColorContext);
 
   return (

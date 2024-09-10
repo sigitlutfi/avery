@@ -9,17 +9,12 @@ import {
   Stack,
 } from "native-base";
 import React, { useContext } from "react";
-import { Dimensions } from "react-native";
 import Board from "../../components/Board";
 import Cext from "../../components/Cext";
 import Header from "../../components/Header";
-import { AuthContext } from "../../contexts/AuthContext";
 import { ColorContext } from "../../contexts/ColorContext";
 
-export default Latihan = ({ navigation, route }) => {
-  const { signOut } = useContext(AuthContext);
-
-  const w80 = (Dimensions.get("screen").width / 100) * 80;
+const Latihan = ({ navigation }) => {
   const { colors } = useContext(ColorContext);
 
   return (
@@ -56,7 +51,7 @@ export default Latihan = ({ navigation, route }) => {
                 <Pressable
                   key={index}
                   onPress={() => {
-                    navigation.navigate("DetailLatihan", { tit: item.name });
+                    navigation.navigate("Preexam", { tit: item.name });
                   }}
                 >
                   <HStack
@@ -98,3 +93,4 @@ export default Latihan = ({ navigation, route }) => {
     </Board>
   );
 };
+export default Latihan;

@@ -1,22 +1,7 @@
 import { Text as NBText } from "native-base";
 import React, { useContext } from "react";
 import { ColorContext } from "../contexts/ColorContext"; // Import the ColorContext
-
-// Define the font families based on your custom fonts
-const fontFamilies = {
-  black: "ProductSans-Black",
-  "black-italic": "ProductSans-BlackItalic",
-  "bold-italic": "ProductSans-BoldItalic",
-  bold: "ProductSans-Bold",
-  italic: "ProductSans-Italic",
-  light: "ProductSans-Light",
-  "light-italic": "ProductSans-LightItalic",
-  "medium-italic": "ProductSans-MediumItalic",
-  medium: "ProductSans-Medium",
-  regular: "ProductSans-Regular",
-  thin: "ProductSans-Thin",
-  "thin-italic": "ProductSans-ThinItalic",
-};
+import { ConfigContext } from "../contexts/ConfigContext";
 
 const Cext = ({
   black,
@@ -25,43 +10,53 @@ const Cext = ({
   light,
   medium,
   thin,
-  fontSize,
+
   color, // Allow overriding the text color
   style,
   ...props
 }) => {
-  const { colors, mode } = useContext(ColorContext);
+  const { colors } = useContext(ColorContext);
+  const { fonts } = useContext(ConfigContext); // Mengambil fonts dari context
 
-  // Determine the font family based on props
-  let fontFamily = fontFamilies.regular; // Default font
+  // Tentukan font family berdasarkan props
+  let fontFamily = fonts.regular; // Default font
 
+  // Cek kombinasi bold & italic di luar switch case
   if (bold && italic) {
-    fontFamily = fontFamilies["bold-italic"];
-  } else if (bold) {
-    fontFamily = fontFamilies.bold;
-  } else if (black) {
-    fontFamily = fontFamilies.black;
-  } else if (italic) {
-    fontFamily = fontFamilies.italic;
-  } else if (light) {
-    fontFamily = fontFamilies.light;
-  } else if (medium) {
-    fontFamily = fontFamilies.medium;
-  } else if (thin) {
-    fontFamily = fontFamilies.thin;
+    fontFamily = fonts["bold-italic"];
+  } else {
+    // Menggunakan switch-case untuk menentukan font
+    switch (true) {
+      case black:
+        fontFamily = fonts.black;
+        break;
+      case bold:
+        fontFamily = fonts.bold;
+        break;
+      case italic:
+        fontFamily = fonts.italic;
+        break;
+      case light:
+        fontFamily = fonts.light;
+        break;
+      case medium:
+        fontFamily = fonts.medium;
+        break;
+      case thin:
+        fontFamily = fonts.thin;
+        break;
+      default:
+        fontFamily = fonts.regular;
+    }
   }
-
   // Resolve the color using the theme or the context
-  const resolvedColor = color ? color : colors.textLight;
 
+  const resolvedColor = color || colors.textLight;
   // Combine default and custom styles
-  const customStyle = {
-    fontFamily,
-    fontSize: fontSize || 14, // Default font size
-    color: resolvedColor, // Apply the resolved color
-  };
 
-  return <NBText style={[customStyle, style]} {...props} />;
+  return (
+    <NBText {...props} style={[{ fontFamily }, style]} color={resolvedColor} />
+  );
 };
 
 export default Cext;

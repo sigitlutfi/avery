@@ -19,10 +19,11 @@ import Headering from "../../components/Headering";
 import { ColorContext } from "../../contexts/ColorContext";
 import formatRupiah from "../../helper/rupiah";
 
-const Keranjang = ({ navigation, route }) => {
+const Keranjang = ({ navigation }) => {
   const [checked, setChecked] = useState([]);
   const { colors } = useContext(ColorContext);
-  const [checktot, setChecktot] = useState(false);
+  const [widthVoc, setWidthVoc] = useState(160);
+  const [voc, setVoc] = useState("");
 
   return (
     <Board>
@@ -39,8 +40,8 @@ const Keranjang = ({ navigation, route }) => {
           ]}
           renderItem={({ item, index }) => (
             <Stack key={index}>
-              <Divider />
-              <HStack alignItems={"center"} ml={4} overflow={"hidden"}>
+              <Divider mt={2} />
+              <HStack alignItems={"center"} overflow={"hidden"} pl={2}>
                 {item.diskon ? (
                   <Box
                     bg={colors.accent}
@@ -98,13 +99,12 @@ const Keranjang = ({ navigation, route }) => {
                   </Cext>
                 </Stack>
               </HStack>
-              <Divider mt={2} />
             </Stack>
           )}
         />
       </Stack>
       <Divider />
-      <Pressable onPress={() => navigation.navigate("Voucher")}>
+      <Pressable>
         <HStack
           px={4}
           py={2}
@@ -116,13 +116,22 @@ const Keranjang = ({ navigation, route }) => {
             <HStack bg={"orange.100"} borderRadius={"lg"} alignItems={"center"}>
               <Icon as={Ionicons} name="gift" color={colors.accent} ml={2} />
               <Input
+                onFocus={() => setWidthVoc("full")}
+                onBlur={() => setWidthVoc(160)}
+                onEndEditing={() => setWidthVoc(160)}
+                autoCapitalize="characters"
                 variant={"unstyled"}
+                value={voc}
+                onChangeText={(v) => setVoc(v)}
                 placeholder="Masukkan Voucher"
-                width={160}
+                width={widthVoc}
               />
             </HStack>
           </Stack>
-          <Cext bold>-{formatRupiah(10000)}</Cext>
+          <Stack>
+            <Cext>{voc !== "" && "VOUCHER INFO"}</Cext>
+            <Cext bold>-{formatRupiah(10000)}</Cext>
+          </Stack>
         </HStack>
       </Pressable>
       <Divider />
