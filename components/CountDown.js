@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function CountdownTimer() {
   const [secondsLeft, setSecondsLeft] = useState(300); // 300 seconds = 5 minutes
@@ -19,9 +19,9 @@ export default function CountdownTimer() {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(
+    return `${String(minutes).padStart(2, '0')}:${String(
       remainingSeconds
-    ).padStart(2, "0")}`;
+    ).padStart(2, '0')}`;
   };
 
   return (
@@ -33,14 +33,14 @@ export default function CountdownTimer() {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "center",
+    alignSelf: 'center',
     padding: 8,
     borderRadius: 15,
-    backgroundColor: "#0171CD",
+    backgroundColor: '#0171CD',
   },
   timerText: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 'bold',
+    color: 'white',
   },
 });

@@ -1,20 +1,20 @@
-import { Text as NBText } from "native-base";
-import React from "react";
+import { Text as NBText } from 'native-base';
+import React from 'react';
 
 // Define the font families based on your custom fonts
 const fontFamilies = {
-  black: "ProductSans-Black",
-  "black-italic": "ProductSans-BlackItalic",
-  "bold-italic": "ProductSans-BoldItalic",
-  bold: "ProductSans-Bold",
-  italic: "ProductSans-Italic",
-  light: "ProductSans-Light",
-  "light-italic": "ProductSans-LightItalic",
-  "medium-italic": "ProductSans-MediumItalic",
-  medium: "ProductSans-Medium",
-  regular: "ProductSans-Regular",
-  thin: "ProductSans-Thin",
-  "thin-italic": "ProductSans-ThinItalic",
+  black: 'ProductSans-Black',
+  'black-italic': 'ProductSans-BlackItalic',
+  'bold-italic': 'ProductSans-BoldItalic',
+  bold: 'ProductSans-Bold',
+  italic: 'ProductSans-Italic',
+  light: 'ProductSans-Light',
+  'light-italic': 'ProductSans-LightItalic',
+  'medium-italic': 'ProductSans-MediumItalic',
+  medium: 'ProductSans-Medium',
+  regular: 'ProductSans-Regular',
+  thin: 'ProductSans-Thin',
+  'thin-italic': 'ProductSans-ThinItalic',
 };
 
 const Cext = ({
@@ -32,7 +32,7 @@ const Cext = ({
   let fontFamily = fontFamilies.regular; // Default font
 
   if (bold && italic) {
-    fontFamily = fontFamilies["bold-italic"];
+    fontFamily = fontFamilies['bold-italic'];
   } else if (bold) {
     fontFamily = fontFamilies.bold;
   } else if (black) {

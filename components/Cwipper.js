@@ -1,28 +1,30 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Icon } from "native-base";
+import { Ionicons } from '@expo/vector-icons';
+import { Icon } from 'native-base';
 import React, {
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
-} from "react";
+} from 'react';
 import {
   Dimensions,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
-} from "react-native";
-import { ColorContext } from "../contexts/ColorContext";
+} from 'react-native';
 
-const { width } = Dimensions.get("window");
+import { ColorContext } from '../contexts/ColorContext';
 
+const { height, width } = Dimensions.get('window');
+const scheight = height;
 const Cwipper = ({
   children,
   autoplay = false,
   interval = 3000,
   loop = false,
+  height,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { colors } = useContext(ColorContext);
@@ -68,9 +70,10 @@ const Cwipper = ({
       return () => clearInterval(intervalRef.current); // Cleanup on unmount or when autoplay changes
     }
   }, [autoplay, activeIndex, interval, nextSlide]);
+  const cekHeight = height ? height : (scheight * 32) / 100;
 
   return (
-    <View style={styles.carouselContainer}>
+    <View style={[styles.carouselContainer, { height: cekHeight }]}>
       {/* Carousel Items */}
       <ScrollView
         horizontal
@@ -120,37 +123,37 @@ const Cwipper = ({
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    position: "relative",
-    width: "100%",
-    height: 280,
+    position: 'relative',
+    width: '100%',
+
     paddingBottom: 16,
   },
   leftArrow: {
-    position: "absolute",
-    top: "50%",
+    position: 'absolute',
+    top: '50%',
     left: 10,
     transform: [{ translateY: -15 }],
     zIndex: 1,
   },
   rightArrow: {
-    position: "absolute",
-    top: "50%",
+    position: 'absolute',
+    top: '50%',
     right: 10,
     transform: [{ translateY: -15 }],
     zIndex: 1,
   },
   arrowText: {
     fontSize: 30,
-    color: "#000",
+    color: '#000',
   },
   indicatorContainer: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     left: 0,
     right: 0,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   indicator: {
     width: 10,

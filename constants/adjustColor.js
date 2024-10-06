@@ -1,6 +1,6 @@
 const adjustColor = (hex, percent) => {
   // Remove the hash at the start if it's there
-  hex = hex.replace(/^#/, "");
+  hex = hex.replace(/^#/, '');
 
   // Parse the r, g, b values
   let r = parseInt(hex.substring(0, 2), 16);

@@ -1,7 +1,8 @@
-import { Text as NBText } from "native-base";
-import React, { useContext } from "react";
-import { ColorContext } from "../contexts/ColorContext"; // Import the ColorContext
-import { ConfigContext } from "../contexts/ConfigContext";
+import { Text as NBText } from 'native-base';
+import React, { useContext } from 'react';
+
+import { ColorContext } from '../contexts/ColorContext'; // Import the ColorContext
+import { ConfigContext } from '../contexts/ConfigContext';
 
 const Cext = ({
   black,
@@ -23,7 +24,7 @@ const Cext = ({
 
   // Cek kombinasi bold & italic di luar switch case
   if (bold && italic) {
-    fontFamily = fonts["bold-italic"];
+    fontFamily = fonts['bold-italic'];
   } else {
     // Menggunakan switch-case untuk menentukan font
     switch (true) {

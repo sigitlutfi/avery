@@ -1,12 +1,12 @@
 // src/helpers/DynamicIcon.js
-import React from "react";
-import * as Iconly from "react-native-iconly";
+import React from 'react';
+import * as Iconly from 'react-native-iconly';
 
 const Iconl = ({
   iconName,
-  set = "bold",
-  color = "black",
-  size = "medium",
+  set = 'bold',
+  color = 'black',
+  size = 'medium',
 }) => {
   const IconComponent = Iconly[iconName];
 

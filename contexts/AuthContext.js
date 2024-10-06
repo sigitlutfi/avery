@@ -1,5 +1,5 @@
-import * as SecureStore from "expo-secure-store";
-import React, { createContext, useEffect, useMemo, useReducer } from "react";
+import * as SecureStore from 'expo-secure-store';
+import React, { createContext, useEffect, useMemo, useReducer } from 'react';
 
 export const AuthContext = createContext();
 
@@ -13,28 +13,28 @@ const initialState = {
 
 function authReducer(state, action) {
   switch (action.type) {
-    case "RESTORE_TOKEN":
+    case 'RESTORE_TOKEN':
       return {
         ...state,
         userToken: action.token,
         userData: action.userData,
         isLoading: false,
       };
-    case "SIGN_IN":
+    case 'SIGN_IN':
       return {
         ...state,
         isSignOut: false,
         userToken: action.token,
         userData: action.userData,
       };
-    case "SIGN_OUT":
+    case 'SIGN_OUT':
       return {
         ...state,
         isSignOut: true,
         userToken: null,
         userData: null,
       };
-    case "REONBOARDING":
+    case 'REONBOARDING':
       return {
         ...state,
         isOnboardingCompleted: action.onboardingstatus,
@@ -53,25 +53,25 @@ export const AuthProvider = ({ children }) => {
       let userData;
 
       try {
-        userToken = await SecureStore.getItemAsync("userToken");
-        userData = await SecureStore.getItemAsync("userData");
-        console.log("Retrieved token:", userToken);
-        console.log("Retrieved data:", userData);
+        userToken = await SecureStore.getItemAsync('userToken');
+        userData = await SecureStore.getItemAsync('userData');
+        console.log('Retrieved token:', userToken);
+        console.log('Retrieved data:', userData);
       } catch (e) {
-        console.error("Failed to load token:", e);
+        console.error('Failed to load token:', e);
       }
 
       const onboardingval = await SecureStore.getItemAsync(
-        "onboardingCompleted"
+        'onboardingCompleted'
       );
 
       dispatch({
-        type: "REONBOARDING",
-        onboardingstatus: onboardingval === "true",
+        type: 'REONBOARDING',
+        onboardingstatus: onboardingval === 'true',
       });
 
       dispatch({
-        type: "RESTORE_TOKEN",
+        type: 'RESTORE_TOKEN',
         token: userToken,
         userData: JSON.parse(userData),
       });
@@ -83,42 +83,42 @@ export const AuthProvider = ({ children }) => {
   const authContext = useMemo(
     () => ({
       signIn: async (data) => {
-        console.log("Signing in with data:", data);
+        console.log('Signing in with data:', data);
         const userToken = data.token; // Replace with actual token logic
         const userdatajson = data.data;
         const userData = JSON.stringify(userdatajson);
         try {
-          await SecureStore.setItemAsync("userToken", userToken);
-          await SecureStore.setItemAsync("userData", userData);
-          console.log("Token stored successfully:", userToken);
+          await SecureStore.setItemAsync('userToken', userToken);
+          await SecureStore.setItemAsync('userData', userData);
+          console.log('Token stored successfully:', userToken);
         } catch (e) {
-          console.error("Failed to save token:", e);
+          console.error('Failed to save token:', e);
         }
-        dispatch({ type: "SIGN_IN", token: userToken, userData: userdatajson });
+        dispatch({ type: 'SIGN_IN', token: userToken, userData: userdatajson });
       },
       signOut: async () => {
         try {
-          await SecureStore.deleteItemAsync("userToken");
-          await SecureStore.deleteItemAsync("userData");
-          console.log("Token deleted successfully");
+          await SecureStore.deleteItemAsync('userToken');
+          await SecureStore.deleteItemAsync('userData');
+          console.log('Token deleted successfully');
         } catch (e) {
-          console.error("Failed to delete token:", e);
+          console.error('Failed to delete token:', e);
         }
-        dispatch({ type: "SIGN_OUT" });
+        dispatch({ type: 'SIGN_OUT' });
       },
       reOnBoarding: async (data) => {
         console.log(data);
-        if (data.type === "on") {
-          await SecureStore.deleteItemAsync("onboardingCompleted");
+        if (data.type === 'on') {
+          await SecureStore.deleteItemAsync('onboardingCompleted');
           dispatch({
-            type: "REONBOARDING",
-            onboardingstatus: "false",
+            type: 'REONBOARDING',
+            onboardingstatus: 'false',
           });
-        } else if (data.type === "off") {
-          await SecureStore.setItemAsync("onboardingCompleted", "true");
+        } else if (data.type === 'off') {
+          await SecureStore.setItemAsync('onboardingCompleted', 'true');
           dispatch({
-            type: "REONBOARDING",
-            onboardingstatus: "true",
+            type: 'REONBOARDING',
+            onboardingstatus: 'true',
           });
         }
       },

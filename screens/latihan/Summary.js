@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import LottieView from "lottie-react-native";
+import { Ionicons } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 import {
   Box,
   Center,
@@ -11,12 +11,13 @@ import {
   ScrollView,
   Stack,
   Text,
-} from "native-base";
-import React, { useContext, useState } from "react";
-import PieChart from "react-native-pie-chart";
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import { ColorContext } from "../../contexts/ColorContext";
+} from 'native-base';
+import React, { useContext, useState } from 'react';
+import PieChart from 'react-native-pie-chart';
+
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import { ColorContext } from '../../contexts/ColorContext';
 
 const Summary = ({ navigation }) => {
   const { colors } = useContext(ColorContext);
@@ -24,15 +25,15 @@ const Summary = ({ navigation }) => {
 
   const widthAndHeight = 250;
   const series = [123, 321, 188];
-  const [Percobaan, setPercobaan] = useState([{}, {}, {}, {}]);
+  const [Percobaan, _setPercobaan] = useState([{}, {}, {}, {}]);
 
-  const sliceColor = [colors.green, colors.purple, "#ff3c00"];
+  const sliceColor = [colors.green, colors.purple, '#ff3c00'];
 
   return (
     <Board>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px" bg={colors.primary}>
-          <Modal.CloseButton _icon={{ color: "white" }} />
+          <Modal.CloseButton _icon={{ color: 'white' }} />
 
           <Modal.Body>
             <Center>
@@ -43,7 +44,7 @@ const Summary = ({ navigation }) => {
                   height: 200,
                 }}
                 // Find more Lottie files at https://lottiefiles.com/featured
-                source={require("../../assets/images/congrat.json")}
+                source={require('../../assets/images/congrat.json')}
               />
               <Cext color="white" black fontSize={20} mb={2}>
                 Yeayyy....
@@ -59,27 +60,27 @@ const Summary = ({ navigation }) => {
           </Modal.Body>
         </Modal.Content>
       </Modal>
-      <Stack alignItems={"center"} flex={1}>
-        <Box bg={colors.primary} pb={6} w={"full"} alignItems={"center"}>
-          <Cext bold fontSize={20} mt={4} mb={-2} color={"white"}>
+      <Stack alignItems={'center'} flex={1}>
+        <Box bg={colors.primary} pb={6} w={'full'} alignItems={'center'}>
+          <Cext bold fontSize={20} mt={4} mb={-2} color={'white'}>
             HASIL LATIHAN
           </Cext>
-          <HStack alignItems={"center"} space={2}>
+          <HStack alignItems={'center'} space={2}>
             <Cext color={colors.primary}>POIN</Cext>
-            <Text bold fontSize={56} color={"white"}>
+            <Text bold fontSize={56} color={'white'}>
               90
             </Text>
-            <Cext color={"white"}>POIN</Cext>
+            <Cext color={'white'}>POIN</Cext>
           </HStack>
         </Box>
         <Box
           h={6}
           bg={colors.bg}
           mt={-6}
-          w={"full"}
-          borderTopRadius={"2xl"}
+          w={'full'}
+          borderTopRadius={'2xl'}
         ></Box>
-        <ScrollView w={"full"} contentContainerStyle={{ alignItems: "center" }}>
+        <ScrollView w={'full'} contentContainerStyle={{ alignItems: 'center' }}>
           <PieChart
             widthAndHeight={widthAndHeight}
             series={series}
@@ -87,21 +88,21 @@ const Summary = ({ navigation }) => {
             coverRadius={0.7}
             coverFill={colors.bg}
           />
-          <Box w={"full"} p={4}>
+          <Box w={'full'} p={4}>
             {sliceColor.map((v, i) => (
-              <HStack key={i} alignItems={"center"} space={2}>
+              <HStack key={i} alignItems={'center'} space={2}>
                 <Circle w={4} h={4} bg={v} />
                 <Cext>Summary detail {series[i]}</Cext>
               </HStack>
             ))}
           </Box>
 
-          <Box w={"100%"} p={4} mx={4}>
+          <Box w={'100%'} p={4} mx={4}>
             <HStack
               bg={colors.box}
               p={2}
-              justifyContent={"space-between"}
-              borderRadius={"lg"}
+              justifyContent={'space-between'}
+              borderRadius={'lg'}
             >
               <Cext bold w={4}>
                 #
@@ -120,9 +121,9 @@ const Summary = ({ navigation }) => {
               <HStack
                 key={index} // Unique key for each row
                 p={2}
-                justifyContent={"space-between"}
+                justifyContent={'space-between'}
                 borderColor={colors.accent}
-                borderRadius={"xl"}
+                borderRadius={'xl'}
                 borderWidth={index === 3 ? 1 : 0} // Corrected condition
                 // Dynamic background color
               >
@@ -139,10 +140,10 @@ const Summary = ({ navigation }) => {
             bg={colors.accent}
             flex={1}
             p={3}
-            borderRadius={"xl"}
+            borderRadius={'xl'}
             onPress={() => navigation.goBack()}
           >
-            <HStack space={2} justifyContent={"center"}>
+            <HStack space={2} justifyContent={'center'}>
               <Icon as={Ionicons} name="refresh" size={5} color="white" />
               <Cext bold fontSize={16} color="white">
                 COBA LAGI
@@ -153,10 +154,10 @@ const Summary = ({ navigation }) => {
             bg={colors.green}
             flex={1}
             p={3}
-            borderRadius={"xl"}
-            onPress={() => navigation.navigate("KunciJawaban")}
+            borderRadius={'xl'}
+            onPress={() => navigation.navigate('KunciJawaban')}
           >
-            <HStack justifyContent={"center"}>
+            <HStack justifyContent={'center'}>
               <Cext bold fontSize={16} color="white">
                 KUNCI JAWABAN
               </Cext>

@@ -1,17 +1,17 @@
-import { Ionicons } from "@expo/vector-icons";
-import React, { useContext } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { ColorContext } from "../../contexts/ColorContext"; // Adjust the path as needed
+import { Ionicons } from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import { ColorContext } from '../../contexts/ColorContext'; // Adjust the path as needed
 
 function MyCustomTabBar({ state, descriptors, navigation }) {
   const { colors } = useContext(ColorContext); // Get colors from context
-  const { primary } = colors; // Extract primary color from context
 
   return (
     <View
       style={[
         styles.tabBar,
-        { borderTopColor: primary, backgroundColor: colors.box },
+        { borderTopColor: colors.primary, backgroundColor: colors.box },
       ]}
     >
       {state.routes.map((route, index) => {
@@ -20,7 +20,7 @@ function MyCustomTabBar({ state, descriptors, navigation }) {
 
         const onPress = () => {
           const event = navigation.emit({
-            type: "tabPress",
+            type: 'tabPress',
             target: route.key,
             canPreventDefault: true,
           });
@@ -32,12 +32,12 @@ function MyCustomTabBar({ state, descriptors, navigation }) {
 
         const onLongPress = () => {
           navigation.emit({
-            type: "tabLongPress",
+            type: 'tabLongPress',
             target: route.key,
           });
         };
 
-        const iconName = route.params?.icon || "alert-circle-outline";
+        const iconName = route.params?.icon || 'alert-circle-outline';
 
         return (
           <TouchableOpacity
@@ -53,13 +53,13 @@ function MyCustomTabBar({ state, descriptors, navigation }) {
             <Ionicons
               name={iconName}
               size={24}
-              color={isFocused ? colors.primary : colors.lightgray} // Use primary color for focused state
+              color={isFocused ? colors.secondary : colors.lightgray} // Use primary color for focused state
             />
             <Text
               style={{
-                color: isFocused ? colors.primary : colors.lightgray, // Use primary color for focused state
+                color: isFocused ? colors.secondary : colors.lightgray, // Use primary color for focused state
                 fontSize: 12,
-                fontWeight: isFocused ? "bold" : "400",
+                fontWeight: isFocused ? 'bold' : '400',
               }}
             >
               {options.tabBarLabel !== undefined
@@ -75,7 +75,7 @@ function MyCustomTabBar({ state, descriptors, navigation }) {
 
 const styles = StyleSheet.create({
   tabBar: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 60,
     marginTop: -4,
     borderTopWidth: 3,
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
   },
 });

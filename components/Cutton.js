@@ -1,12 +1,13 @@
-import { Box, Pressable } from "native-base";
-import React, { useContext } from "react";
+import { Box, Pressable } from 'native-base';
+import React, { useContext } from 'react';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-} from "react-native-reanimated";
-import Cext from "../components/Cext";
-import { ColorContext } from "../contexts/ColorContext";
+} from 'react-native-reanimated';
+
+import Cext from '../components/Cext';
+import { ColorContext } from '../contexts/ColorContext';
 
 // Create AnimatedPressable
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -17,11 +18,14 @@ const Cutton = ({
   center = false,
   full = false,
   title,
+  br = 8,
   fontSize = 16,
-  var: variant = "default",
+  var: variant = 'default',
   children,
-  w = "auto",
-  h = "auto",
+  w = 'auto',
+  h = 'auto',
+  py = 2,
+  px = 4,
   disabled = false, // Add disabled prop with a default value of false
   ...props
 }) => {
@@ -57,15 +61,15 @@ const Cutton = ({
   // Determine button styles based on the variant prop
   const getVariantStyles = () => {
     switch (variant) {
-      case "outline":
+      case 'outline':
         return {
-          bg: "transparent",
+          bg: 'transparent',
           borderWidth: 2,
           borderColor: backgroundColor,
         };
-      case "ghost":
+      case 'ghost':
         return {
-          bg: "transparent",
+          bg: 'transparent',
         };
       default:
         return {
@@ -78,11 +82,11 @@ const Cutton = ({
   const disabledStyles = disabled
     ? {
         opacity: 0.5, // Visually indicate the button is disabled
-        pointerEvents: "none", // Prevent interactions when disabled
+        pointerEvents: 'none', // Prevent interactions when disabled
       }
     : {
         opacity: 1,
-        pointerEvents: "auto",
+        pointerEvents: 'auto',
       };
 
   return (
@@ -94,21 +98,21 @@ const Cutton = ({
       style={[
         animatedStyle,
         {
-          alignSelf: full ? "stretch" : "auto",
-          width: "auto",
-          overflow: "hidden",
-          justifyContent: center ? "center" : "flex-start",
+          alignSelf: full ? 'stretch' : 'auto',
+          width: 'auto',
+          overflow: 'hidden',
+          justifyContent: center ? 'center' : 'flex-start',
           ...disabledStyles, // Apply disabled styles
         },
       ]}
     >
       <Box
-        px={4}
-        py={2}
+        px={px}
+        py={py}
         alignItems="center"
         justifyContent="center"
-        flexDir={"row"}
-        borderRadius="8"
+        flexDir={'row'}
+        borderRadius={br}
         {...getVariantStyles()}
         width={w}
         height={h}
@@ -118,11 +122,11 @@ const Cutton = ({
         ) : (
           <Cext
             color={
-              variant === "outline"
+              variant === 'outline'
                 ? backgroundColor
-                : variant === "ghost"
+                : variant === 'ghost'
                   ? colors.primary
-                  : "white"
+                  : 'white'
             }
             fontWeight="bold"
             fontSize={fontSize}

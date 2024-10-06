@@ -1,17 +1,18 @@
-import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
   View,
   useWindowDimensions,
-} from "react-native";
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   withTiming,
-} from "react-native-reanimated";
-import { ColorContext } from "../contexts/ColorContext";
-import Cext from "./Cext";
+} from 'react-native-reanimated';
+
+import Cext from './Cext';
+import { ColorContext } from '../contexts/ColorContext';
 
 const SegmentedControl = React.memo(
   ({ options, selectedIndex, onOptionPress, setSelectedIndex }) => {
@@ -77,7 +78,7 @@ const SegmentedControl = React.memo(
   }
 );
 
-SegmentedControl.displayName = "SegmentedControl";
+SegmentedControl.displayName = 'SegmentedControl';
 
 SegmentedControl.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -88,17 +89,17 @@ SegmentedControl.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 55,
   },
   activeBox: {
-    position: "absolute",
+    position: 'absolute',
     borderBottomWidth: 3,
-    height: "100%",
+    height: '100%',
   },
   labelContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   label: {
     fontSize: 16,

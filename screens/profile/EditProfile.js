@@ -1,5 +1,5 @@
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   Box,
   Button,
@@ -7,34 +7,34 @@ import {
   HStack,
   Icon,
   Image,
-  Input,
   Pressable,
   ScrollView,
   Stack,
-} from "native-base";
-import React, { useContext, useState } from "react";
-import { Checkbox } from "react-native-paper";
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import Cinput from "../../components/Cinput";
-import Headering from "../../components/Headering";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ColorContext } from "../../contexts/ColorContext";
+} from 'native-base';
+import React, { useContext, useState } from 'react';
+import { Checkbox } from 'react-native-paper';
+
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import Cinput from '../../components/Cinput';
+import Headering from '../../components/Headering';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ColorContext } from '../../contexts/ColorContext';
 
 const EditProfile = ({ navigation }) => {
   const { authState } = useContext(AuthContext);
   const { userData } = authState;
   const { colors } = useContext(ColorContext);
 
-  const [text, setText] = useState("");
+  const [_text, setText] = useState('');
 
   return (
     <Board>
       <Headering
-        tit={"EDIT PROFILE"}
+        tit={'EDIT PROFILE'}
         right={
-          <Pressable ml={-4} onPress={() => navigation.navigate("Setting")}>
-            <Center bg={colors.accent} px={2} py={1} borderRadius={"full"}>
+          <Pressable ml={-4} onPress={() => navigation.navigate('Setting')}>
+            <Center bg={colors.accent} px={2} py={1} borderRadius={'full'}>
               <Cext fontSize={12} bold color="white">
                 Simpan
               </Cext>
@@ -45,8 +45,8 @@ const EditProfile = ({ navigation }) => {
 
       <ScrollView>
         <Stack>
-          <HStack space={3} mx={4} mt={4} alignItems={"center"}>
-            <Box position={"relative"}>
+          <HStack space={3} mx={4} mt={4} alignItems={'center'}>
+            <Box position={'relative'}>
               <LinearGradient
                 // Background Linear Gradient
                 colors={[colors.primary, colors.green]}
@@ -57,8 +57,8 @@ const EditProfile = ({ navigation }) => {
                   height: 120,
 
                   borderRadius: 60,
-                  alignItems: "center",
-                  justifyContent: "center",
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <Image
@@ -66,7 +66,7 @@ const EditProfile = ({ navigation }) => {
                     uri: userData.pic,
                   }}
                   alt=""
-                  borderRadius={"full"}
+                  borderRadius={'full'}
                   style={{ width: 110, height: 110, borderRadius: 55 }}
                 />
               </LinearGradient>
@@ -76,168 +76,131 @@ const EditProfile = ({ navigation }) => {
                 Update Foto Profil
               </Cext>
               <Cext color="gray.400">Ukuran maks. 2 MB</Cext>
-              <HStack space={2} alignItems={"center"}>
+              <HStack space={2} alignItems={'center'}>
                 <Button
-                  size={"xs"}
+                  size={'xs'}
                   h={8}
                   bg={colors.green}
-                  borderRadius={"lg"}
+                  borderRadius={'lg'}
                   leftIcon={<Icon as={Ionicons} name="cloud-upload-outline" />}
                 >
                   <Cext fontSize={12} color="white" mt={-0.5}>
                     Unggah
                   </Cext>
                 </Button>
-                <Cext bold color={colors.red}>
+                <Cext medium fontSize={12} color={colors.red}>
                   Hapus Foto Profil
                 </Cext>
               </HStack>
             </Stack>
           </HStack>
-          <Stack space={2} p={4}>
+          <Stack space={3} p={4}>
             {/* Kasus 1: Input untuk email dengan validasi email otomatis */}
+
             <Cinput
               isRequired
-              label="Email"
-              value={text}
+              label="Nama Lengkap"
+              value={userData.nama}
+              onChangeText={(v) => setText(v)}
+              placeholder="Enter your email"
+              rightIcon={
+                <Icon
+                  as={MaterialIcons}
+                  size={5}
+                  ml={2}
+                  color={colors.mint}
+                  name="check"
+                />
+              }
+            />
+
+            <Cinput
+              isRequired
+              label="Nomor Telepon"
+              value={userData.nohp}
               onChangeText={(v) => setText(v)}
               placeholder="Enter your email"
               validation={{
-                email: true, // Validasi email otomatis
-                errorText: "Format email tidak valid",
-                validText: "Email valid",
+                errorText: '',
+                validText: 'Nomor Terverifikasi',
               }}
             />
 
-            {/* Kasus 2: Input dengan minimal dan maksimal karakter */}
-            <Cinput
-              label="Username"
-              value={text}
-              onChangeText={(v) => setText(v)}
-              placeholder="Enter your username"
-              validation={{
-                minLength: 5, // Minimal 5 karakter
-                maxLength: 15, // Maksimal 15 karakter
-                errorText: "Username tidak valid",
-                validText: "Username valid",
-              }}
-            />
-
-            {/* Kasus 3: Input password dengan toggle visibility dan validasi minLength */}
-            <Cinput
-              label="Password"
-              placeholder="Enter your password"
-              value={text}
-              onChangeText={(v) => setText(v)}
-              secureTextEntry // Input dalam mode sandi
-              togglePassword // Menambahkan tombol untuk toggle visibility
-              validation={{
-                minLength: 8, // Minimal 8 karakter
-                errorText: "Password terlalu pendek",
-                validText: "Password valid",
-              }}
-            />
-
-            {/* Kasus 4: Input dengan ikon di kiri dan kanan */}
-            <Cinput
-              label="Phone Number"
-              value={text}
-              onChangeText={(v) => setText(v)}
-              placeholder="Enter your phone number"
-              leftIcon={<MaterialIcons name="phone" />} // Ikon di kiri
-              rightIcon={<MaterialIcons name="check" />} // Ikon di kanan
-              validation={{
-                errorText: "Nomor tidak valid",
-                validText: "Nomor valid",
-              }}
-            />
-
-            {/* Kasus 5: Memaksa menampilkan error secara manual */}
-            <Cinput
-              label="Custom Field"
-              value={text}
-              onChangeText={(v) => setText(v)}
-              placeholder="Enter custom value"
-              forceShowError={true} // Paksa menampilkan error
-              validation={{
-                errorText: "Input tidak boleh kosong",
-              }}
-            />
-            <Cext bold>Nama Lengkap</Cext>
-            <Box bg={colors.box} borderRadius={"xl"} mt={1} mb={3}>
-              <Input
-                variant={"unstyled"}
-                value={userData.nama}
-                _input={{ color: colors.textLight }}
-              />
-            </Box>
-
-            <Cext bold>Nomor Telepon</Cext>
-            <Box bg={colors.box} borderRadius={"xl"} mt={1} mb={1}>
-              <Input
-                variant={"unstyled"}
-                value={userData.nohp}
-                _input={{ color: colors.textLight }}
-              />
-            </Box>
-            <HStack alignItems={"center"} mb={3}>
+            <HStack alignItems={'center'} mb={3} mt={-3} ml={-2}>
               <Checkbox status="checked" color={colors.green} />
               <Cext>Dapat dihubungi melalui WhatsApp</Cext>
             </HStack>
 
-            <Cext bold>Email</Cext>
-            <HStack
-              bg={colors.box}
-              borderRadius={"xl"}
-              mt={1}
-              mb={3}
-              pr={2}
-              alignItems={"center"}
-            >
-              <Input
-                variant={"unstyled"}
-                value={userData.email}
-                flex={1}
-                _input={{ color: colors.textLight }}
-              />
-              <Icon as={Ionicons} name="checkmark-done" color={colors.green} />
-            </HStack>
-            <Cext bold>Provinsi</Cext>
-            <HStack
-              bg={colors.box}
-              borderRadius={"xl"}
-              mt={1}
-              mb={3}
-              pr={2}
-              alignItems={"center"}
-            >
-              <Input variant={"unstyled"} placeholder="Provinsi" flex={1} />
-              <Icon as={Ionicons} name="chevron-down" size={6} />
-            </HStack>
+            <Cinput
+              isRequired
+              label="Email"
+              value={userData.email}
+              onChangeText={(v) => setText(v)}
+              placeholder="Enter your email"
+              sublabel={
+                'Digunakan untuk recovery password dan manajemen akun anda.'
+              }
+              validation={{
+                email: true, // Validasi email otomatis
+                errorText: '',
+                validText: 'Email valid',
+              }}
+            />
 
-            <Cext bold>Kota / Kabupaten</Cext>
-            <HStack
-              bg={colors.box}
-              borderRadius={"xl"}
-              mt={1}
-              mb={3}
-              pr={2}
-              alignItems={"center"}
-            >
-              <Input
-                variant={"unstyled"}
-                placeholder="Kota/Kabupaten"
-                flex={1}
-              />
-              <Icon as={Ionicons} name="chevron-down" size={6} />
-            </HStack>
+            <Cinput
+              label="Instagram"
+              value={null}
+              leftIcon={
+                <Icon
+                  as={Ionicons}
+                  name="logo-instagram"
+                  color={colors.pink}
+                  size={5}
+                  mr={2}
+                />
+              }
+              onChangeText={(v) => setText(v)}
+              placeholder="Instagram"
+              validation={{
+                email: true, // Validasi email otomatis
+                errorText: '',
+                validText: '',
+              }}
+            />
+            <Cinput
+              isRequired
+              label="Provinsi"
+              value={null}
+              rightIcon={<Icon as={Ionicons} name="chevron-down" />}
+              onChangeText={(v) => setText(v)}
+              placeholder="Pilih Provinsi"
+              validation={{
+                email: true, // Validasi email otomatis
+                errorText: '',
+                validText: '',
+              }}
+            />
 
-            <Button bg={"gray.700"} borderRadius={"xl"}>
-              <Cext bold color={"white"}>
+            <Cinput
+              isRequired
+              label="Kota/Kabupaten"
+              value={null}
+              onChangeText={(v) => setText(v)}
+              placeholder="Pilih Kota/Kabupaten"
+              rightIcon={<Icon as={Ionicons} name="chevron-down" />}
+              validation={{
+                email: true, // Validasi email otomatis
+                errorText: '',
+                validText: 'Email valid',
+              }}
+            />
+
+            <Button bg={'gray.700'} borderRadius={'xl'} mt={4}>
+              <Cext bold color={'white'}>
                 Ganti Password
               </Cext>
             </Button>
-            <Button variant={"ghost"} borderRadius={"xl"} mt={8}>
+            <Button variant={'ghost'} borderRadius={'xl'} mt={8}>
               <Cext bold color={colors.red}>
                 Hapus Akun
               </Cext>

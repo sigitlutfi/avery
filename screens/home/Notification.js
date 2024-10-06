@@ -1,7 +1,6 @@
 // App.js
-import React from "react";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 import {
   Center,
   Divider,
@@ -12,29 +11,31 @@ import {
   Pressable,
   Stack,
   Text,
-} from "native-base";
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import Headering from "../../components/Headering";
+} from 'native-base';
+import React from 'react';
+
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import Headering from '../../components/Headering';
 
 const Notification = () => {
   return (
     <Board>
       <Headering
-        tit={"NOTIFIKASI"}
+        tit={'NOTIFIKASI'}
         right={
           <Pressable>
             <Center
-              position={"absolute"}
+              position={'absolute'}
               top={0}
               right={-4}
               w={17}
               h={17}
-              bg={"red.500"}
-              borderRadius={"full"}
+              bg={'red.500'}
+              borderRadius={'full'}
               zIndex={4}
             >
-              <Text color={"white"} bold fontSize={8}>
+              <Text color={'white'} bold fontSize={8}>
                 24
               </Text>
             </Center>
@@ -42,7 +43,7 @@ const Notification = () => {
               name="notifications-outline"
               as={Ionicons}
               size={8}
-              color={"white"}
+              color={'white'}
             />
           </Pressable>
         }
@@ -51,13 +52,13 @@ const Notification = () => {
         px={4}
         data={[{}, {}, {}, {}, {}, {}]}
         renderItem={({ index }) => (
-          <Pressable mb={4} onPress={() => alert("this action")} key={index}>
+          <Pressable mb={4} onPress={() => alert('this action')} key={index}>
             <HStack>
               <Image
-                bg={"amber.300"}
-                borderRadius={"2xl"}
+                bg={'amber.300'}
+                borderRadius={'2xl'}
                 source={{
-                  uri: "https://png.pngtree.com/png-clipart/20230621/original/pngtree-special-promo-banner-design-for-sale-and-offer-vector-png-image_9193515.png",
+                  uri: 'https://png.pngtree.com/png-clipart/20230621/original/pngtree-special-promo-banner-design-for-sale-and-offer-vector-png-image_9193515.png',
                 }}
                 alt=""
                 size="xl"

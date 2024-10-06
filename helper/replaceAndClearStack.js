@@ -1,5 +1,5 @@
 // navigationUtils.js
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions } from '@react-navigation/native';
 
 export const replaceWithNestedStack = (
   navigation,

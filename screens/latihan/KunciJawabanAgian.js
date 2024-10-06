@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 import {
   Box,
   Center,
@@ -10,16 +10,16 @@ import {
   ScrollView,
   Stack,
   Text,
-} from "native-base";
-import React, { useContext, useEffect, useState } from "react";
+} from 'native-base';
+import React, { useContext, useEffect, useState } from 'react';
 
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import adjustColor from "../../constants/adjustColor";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ColorContext } from "../../contexts/ColorContext";
-import { replaceWithNestedStack } from "../../helper/replaceAndClearStack";
-import { useCountdownTimer } from "../../helper/timeHelper";
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import adjustColor from '../../constants/adjustColor';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ColorContext } from '../../contexts/ColorContext';
+import { replaceWithNestedStack } from '../../helper/replaceAndClearStack';
+import { useCountdownTimer } from '../../helper/timeHelper';
 
 const KunciJawaban = ({ navigation }) => {
   const { signOut } = useContext(AuthContext);
@@ -27,7 +27,7 @@ const KunciJawaban = ({ navigation }) => {
   const { timeLeft } = useCountdownTimer();
   const { colors } = useContext(ColorContext);
   useEffect(() => {
-    if (timeLeft === "00:01") {
+    if (timeLeft === '00:01') {
       navigation.goBack(); // Navigate back when time is 00:01
     }
   }, [timeLeft, navigation]);
@@ -47,27 +47,27 @@ const KunciJawaban = ({ navigation }) => {
 
   const options = [
     {
-      label: "A",
-      urai: "Deserunt dolore aliqua dolore exercitation incididunt duis esse anim adipisicing.",
+      label: 'A',
+      urai: 'Deserunt dolore aliqua dolore exercitation incididunt duis esse anim adipisicing.',
     },
     {
-      label: "B",
-      urai: "Commodo et ullamco ipsum dolore non dolor velit nulla laborum.",
+      label: 'B',
+      urai: 'Commodo et ullamco ipsum dolore non dolor velit nulla laborum.',
     },
     {
-      label: "C",
-      urai: "Officia ad nostrud velit minim est ex velit nulla velit consequat.",
+      label: 'C',
+      urai: 'Officia ad nostrud velit minim est ex velit nulla velit consequat.',
     },
-    { label: "D", urai: "Qui cupidatat ad deserunt incididunt." },
+    { label: 'D', urai: 'Qui cupidatat ad deserunt incididunt.' },
     {
-      label: "E",
-      urai: "Minim magna laborum non duis esse nisi excepteur labore non quis eiusmod fugiat.",
+      label: 'E',
+      urai: 'Minim magna laborum non duis esse nisi excepteur labore non quis eiusmod fugiat.',
     },
   ];
   // Store the selected options as an array
-  const [selectedOptions, setSelectedOptions] = useState(["B"]);
+  const [selectedOptions, setSelectedOptions] = useState(['B']);
 
-  const handleOptionPress = (option) => {
+  const _handleOptionPress = (option) => {
     if (selectedOptions.includes(option.label)) {
       // If the option is already selected, remove it
       setSelectedOptions(selectedOptions.filter((o) => o !== option.label));
@@ -76,7 +76,7 @@ const KunciJawaban = ({ navigation }) => {
       setSelectedOptions([...selectedOptions, option.label]);
     } else {
       // Optional: Display an alert or notification when the limit is reached
-      alert("You can only select up to two options.");
+      alert('You can only select up to two options.');
     }
   };
 
@@ -102,23 +102,23 @@ const KunciJawaban = ({ navigation }) => {
       <Box>
         <HStack
           p={4}
-          alignItems={"center"}
-          justifyContent={"space-between"}
+          alignItems={'center'}
+          justifyContent={'space-between'}
           bg={colors.primary}
         >
-          <HStack alignItems={"center"}>
+          <HStack alignItems={'center'}>
             <Pressable
               pr={3}
               onPress={() =>
                 replaceWithNestedStack(
                   navigation,
-                  "HomeStack",
-                  "StackLatihan",
-                  { someParam: "value" }
+                  'HomeStack',
+                  'StackLatihan',
+                  { someParam: 'value' }
                 )
               }
             >
-              <Icon color={"white"} size={8} name="close" as={Ionicons} />
+              <Icon color={'white'} size={8} name="close" as={Ionicons} />
             </Pressable>
 
             <Cext
@@ -126,7 +126,7 @@ const KunciJawaban = ({ navigation }) => {
               bold
               fontSize={18}
               onPress={() => signOut()}
-              color={"white"}
+              color={'white'}
             >
               Kunci Jawaban
             </Cext>
@@ -142,7 +142,7 @@ const KunciJawaban = ({ navigation }) => {
                 aute magna ullamco pariatur.
               </Cext>
 
-              <Cext textAlign={"justify"} fontSize={16}>
+              <Cext textAlign={'justify'} fontSize={16}>
                 Aute ullamco aliqua mollit proident irure exercitation.Labore
                 deserunt cupidatat ea id ut ad laborum laborum ipsum cillum elit
                 aliquip reprehenderit excepteur.
@@ -161,10 +161,9 @@ const KunciJawaban = ({ navigation }) => {
                         : colors.box
                   }
                   shadow={3}
-                  borderRadius={"lg"}
-                  onPress={() => handleOptionPress(v)}
+                  borderRadius={'lg'}
                 >
-                  <HStack alignItems={"center"}>
+                  <HStack alignItems={'center'}>
                     <Cext
                       bold
                       fontSize={22}
@@ -172,7 +171,7 @@ const KunciJawaban = ({ navigation }) => {
                       ml={2}
                       color={
                         selectedOptions.includes(v.label) || i === 2
-                          ? colors.textDark
+                          ? 'white'
                           : colors.textLight
                       }
                     >
@@ -180,10 +179,10 @@ const KunciJawaban = ({ navigation }) => {
                     </Cext>
                     <Cext
                       flexShrink={1}
-                      flexWrap={"wrap"}
+                      flexWrap={'wrap'}
                       color={
                         selectedOptions.includes(v.label) || i === 2
-                          ? colors.textDark
+                          ? 'white'
                           : colors.textLight
                       }
                     >
@@ -199,14 +198,14 @@ const KunciJawaban = ({ navigation }) => {
                 </Cext>
                 <Image
                   source={{
-                    uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Koala_climbing_tree.jpg/220px-Koala_climbing_tree.jpg",
+                    uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Koala_climbing_tree.jpg/220px-Koala_climbing_tree.jpg',
                   }}
                   alt=""
-                  width={"full"}
+                  width={'full'}
                   resizeMode="cover"
                   height={300}
                   mb={2}
-                  borderRadius={"xl"}
+                  borderRadius={'xl'}
                 />
                 <Cext textAlign="justify">
                   Eiusmod fugiat voluptate elit consectetur non ea veniam
@@ -219,42 +218,42 @@ const KunciJawaban = ({ navigation }) => {
               </Box>
               <HStack space={2}>
                 <Pressable
-                  onPress={() => navigation.navigate("Summary")}
+                  onPress={() => navigation.navigate('Summary')}
                   flex={1}
                 >
                   <HStack
                     bg={adjustColor(colors.accent, -15)}
-                    alignItems={"center"}
-                    justifyContent={"center"}
+                    alignItems={'center'}
+                    justifyContent={'center'}
                     py={2}
-                    borderRadius={"lg"}
+                    borderRadius={'lg'}
                   >
                     <Icon
                       mr={2}
                       as={Ionicons}
                       name="arrow-back-circle"
-                      color={"white"}
+                      color={'white'}
                     />
-                    <Cext color={"white"}>Sebelumnya</Cext>
+                    <Cext color={'white'}>Sebelumnya</Cext>
                   </HStack>
                 </Pressable>
                 <Pressable
-                  onPress={() => navigation.navigate("Summary")}
+                  onPress={() => navigation.navigate('Summary')}
                   flex={1}
                 >
                   <HStack
                     bg={colors.accent}
-                    alignItems={"center"}
-                    justifyContent={"center"}
+                    alignItems={'center'}
+                    justifyContent={'center'}
                     py={2}
-                    borderRadius={"lg"}
+                    borderRadius={'lg'}
                   >
-                    <Cext color={"white"}>Berikutnya</Cext>
+                    <Cext color={'white'}>Berikutnya</Cext>
                     <Icon
                       ml={2}
                       as={Ionicons}
                       name="arrow-forward-circle"
-                      color={"white"}
+                      color={'white'}
                     />
                   </HStack>
                 </Pressable>
@@ -271,7 +270,7 @@ const KunciJawaban = ({ navigation }) => {
         >
           <ScrollView
             horizontal
-            contentContainerStyle={{ alignItems: "center" }}
+            contentContainerStyle={{ alignItems: 'center' }}
           >
             {page.map((v, i) => (
               <Pressable key={i} mr={2}>
@@ -279,13 +278,9 @@ const KunciJawaban = ({ navigation }) => {
                   bg={v.salah ? adjustColor(colors.red, -20) : colors.green}
                   w={i === 4 ? 10 : 8}
                   h={i === 4 ? 10 : 8}
-                  borderRadius={"lg"}
+                  borderRadius={'lg'}
                 >
-                  <Text
-                    color={colors.textDark}
-                    fontSize={i === 4 ? 16 : 10}
-                    bold
-                  >
+                  <Text color={'white'} fontSize={i === 4 ? 16 : 10} bold>
                     {i + 1}
                   </Text>
                 </Center>

@@ -1,38 +1,39 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
-import { NativeBaseProvider } from "native-base";
-import React, { useContext, useEffect, useState } from "react";
-import { LogBox } from "react-native";
-import MyCustomTabBar from "./components/navigation/MyTab";
-import adjustColor from "./constants/adjustColor";
-import { AuthContext, AuthProvider } from "./contexts/AuthContext";
-import { ColorContext, ColorPaletteProvider } from "./contexts/ColorContext";
-import { ConfigContext, ConfigProvider } from "./contexts/ConfigContext";
-import Login from "./screens/auth/Login";
-import Register from "./screens/auth/Register";
-import Belajar from "./screens/belajar/Belajar";
-import DetailBelajar from "./screens/belajar/DetailBelajar";
-import Subkategori from "./screens/belajar/Subkategori";
-import Help from "./screens/home/Help";
-import Home from "./screens/home/Home";
-import Notification from "./screens/home/Notification";
-import DetailLatihan from "./screens/latihan/DetailLatihan";
-import KunciJawabanAgian from "./screens/latihan/KunciJawabanAgian";
-import Latihan from "./screens/latihan/Latihan";
-import Summary from "./screens/latihan/Summary";
-import OnboardingScreen from "./screens/OnBoarding";
-import Cekot from "./screens/paket/Cekot";
-import Keranjang from "./screens/paket/Keranjang";
-import Paket from "./screens/paket/Paket";
-import Voucher from "./screens/paket/Voucher";
-import Preexam from "./screens/Preexam";
-import EditProfile from "./screens/profile/EditProfile";
-import Profile from "./screens/profile/Profile";
-import Setting from "./screens/profile/Setting";
-import Splash from "./screens/Splash";
-import Tryout from "./screens/tryout/Tryout";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider } from 'native-base';
+import React, { useContext, useEffect, useState } from 'react';
+import { LogBox } from 'react-native';
+
+import MyCustomTabBar from './components/navigation/MyTab';
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
+import { ColorPaletteProvider } from './contexts/ColorContext';
+import { ConfigContext, ConfigProvider } from './contexts/ConfigContext';
+import Login from './screens/auth/Login';
+import Register from './screens/auth/Register';
+import Belajar from './screens/belajar/Belajar';
+import DetailBelajar from './screens/belajar/DetailBelajar';
+import Subkategori from './screens/belajar/Subkategori';
+import Error from './screens/Error';
+import Help from './screens/home/Help';
+import Home from './screens/home/Home';
+import Notification from './screens/home/Notification';
+import DetailLatihan from './screens/latihan/DetailLatihan';
+import DetailLatihangambar from './screens/latihan/DetailLatihangambar';
+import KunciJawabanAgian from './screens/latihan/KunciJawabanAgian';
+import Latihan from './screens/latihan/Latihan';
+import Summary from './screens/latihan/Summary';
+import OnboardingScreen from './screens/OnBoarding';
+import Cekot from './screens/paket/Cekot';
+import Keranjang from './screens/paket/Keranjang';
+import Paket from './screens/paket/Paket';
+import Voucher from './screens/paket/Voucher';
+import Preexam from './screens/Preexam';
+import EditProfile from './screens/profile/EditProfile';
+import Profile from './screens/profile/Profile';
+import Setting from './screens/profile/Setting';
+import Splash from './screens/Splash';
+import Tryout from './screens/tryout/Tryout';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -64,30 +65,30 @@ const BottomTab = () => (
     <Tab.Screen
       name="StackHome"
       component={StackHome}
-      options={{ tabBarLabel: "Home" }}
-      initialParams={{ icon: "home" }}
+      options={{ tabBarLabel: 'Home' }}
+      initialParams={{ icon: 'home' }}
     />
     <Tab.Screen
       name="StackBelajar"
       component={StackBelajar}
-      options={{ tabBarLabel: "Belajar" }}
-      initialParams={{ icon: "book-sharp" }}
+      options={{ tabBarLabel: 'Belajar' }}
+      initialParams={{ icon: 'book-sharp' }}
     />
     <Tab.Screen
       name="StackLatihan"
       component={StackLatihan}
-      options={{ tabBarLabel: "Latihan" }}
-      initialParams={{ icon: "document" }}
+      options={{ tabBarLabel: 'Latihan' }}
+      initialParams={{ icon: 'document' }}
     />
     <Tab.Screen
       name="Try Out"
       component={Tryout}
-      initialParams={{ icon: "documents" }}
+      initialParams={{ icon: 'documents' }}
     />
     <Tab.Screen
       name="Paket"
       component={Paket}
-      initialParams={{ icon: "basket" }}
+      initialParams={{ icon: 'basket' }}
     />
   </Tab.Navigator>
 );
@@ -98,6 +99,7 @@ const AppStack = () => (
     <Stack.Screen name="Notification" component={Notification} />
     <Stack.Screen name="Preexam" component={Preexam} />
     <Stack.Screen name="DetailLatihan" component={DetailLatihan} />
+    <Stack.Screen name="DetailLatihangambar" component={DetailLatihangambar} />
     <Stack.Screen name="Summary" component={Summary} />
     <Stack.Screen name="KunciJawaban" component={KunciJawabanAgian} />
     <Stack.Screen name="Profile" component={Profile} />
@@ -125,15 +127,15 @@ const OnBoardingStack = () => (
 
 const App = () => {
   const { authState } = useContext(AuthContext);
-  const { colors } = useContext(ColorContext);
-  const { isConfigLoading } = useContext(ConfigContext);
+
+  const { isConfigLoading, error, errorPage } = useContext(ConfigContext);
 
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     LogBox.ignoreLogs([
-      "In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.",
-      "VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.",
+      'In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.',
+      'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.',
     ]);
   }, []);
 
@@ -142,37 +144,43 @@ const App = () => {
     if (authState.isLoading || isConfigLoading) {
       setShowSplash(true);
     } else {
-      const timer = setTimeout(() => {
-        setShowSplash(false);
-      }, 500); // Splash screen delay
-
-      return () => clearTimeout(timer);
+      setShowSplash(false);
     }
   }, [isConfigLoading, authState.isLoading]);
 
+  console.log(
+    'Error: ' +
+      error +
+      ' / Auth Loading: ' +
+      authState.isLoading +
+      ' / Config Loading: ' +
+      isConfigLoading
+  );
+
   if (showSplash) {
-    return <Splash onTimeout={() => setShowSplash(false)} />;
+    // Show splash screen when loading
+    return <Splash />;
+  }
+
+  console.log('Show Splash: ' + showSplash);
+
+  if (error && !showSplash && errorPage) {
+    // Show error screen if there's an error and debug mode is enabled, and splash is finished
+    return <Error error={error} />;
   }
 
   return (
-    <>
-      <StatusBar
-        backgroundColor={adjustColor(colors.primary, -12)} // Set the background color
-        style="light" // Set the text color (dark or light)
-        translucent={false} // Set to true if you want the status bar to overlay your app
-      />
-      <NavigationContainer>
-        {authState.isOnboardingCompleted ? (
-          authState.userToken === null ? (
-            <AuthStack />
-          ) : (
-            <AppStack />
-          )
+    <NavigationContainer>
+      {authState.isOnboardingCompleted ? (
+        authState.userToken === null ? (
+          <AuthStack />
         ) : (
-          <OnBoardingStack />
-        )}
-      </NavigationContainer>
-    </>
+          <AppStack />
+        )
+      ) : (
+        <OnBoardingStack />
+      )}
+    </NavigationContainer>
   );
 };
 

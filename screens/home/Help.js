@@ -1,10 +1,11 @@
-import { Box } from "native-base";
-import React, { useContext } from "react";
-import { WebView } from "react-native-webview";
-import Board from "../../components/Board";
-import Headering from "../../components/Headering";
-import { ColorContext } from "../../contexts/ColorContext";
-import { ConfigContext } from "../../contexts/ConfigContext";
+import { Box } from 'native-base';
+import React, { useContext } from 'react';
+import { WebView } from 'react-native-webview';
+
+import Board from '../../components/Board';
+import Headering from '../../components/Headering';
+import { ColorContext } from '../../contexts/ColorContext';
+import { ConfigContext } from '../../contexts/ConfigContext';
 
 const Help = () => {
   const { colors } = useContext(ColorContext);
@@ -26,7 +27,7 @@ const Help = () => {
         }
 
         h1 {
-            color:${colors.primary};/* Warna biru cerah */
+            color:${colors.secondary};/* Warna biru cerah */
             font-size: 20px;
             text-align: center;
             margin-bottom: 20px;
@@ -121,7 +122,7 @@ const Help = () => {
     <Board>
       <Headering tit="Bantuan" />
       <Box mx={4} flex={1} bg={colors.textLight}>
-        <WebView originWhitelist={["*"]} source={{ html: htmlContent }} />
+        <WebView originWhitelist={['*']} source={{ html: htmlContent }} />
       </Box>
     </Board>
   );

@@ -1,14 +1,15 @@
-import { Box } from "native-base";
-import React, { useRef } from "react";
-import WebView from "react-native-webview";
-import Board from "../../components/Board";
-import Headering from "../../components/Headering";
+import { Box } from 'native-base';
+import React, { useRef } from 'react';
+import WebView from 'react-native-webview';
+
+import Board from '../../components/Board';
+import Headering from '../../components/Headering';
 
 const DetailBelajar = () => {
   const webviewRef = useRef(null);
   const handleMessage = (event) => {
     const content = event.nativeEvent.data;
-    console.log("Content from TinyMCE:", content);
+    console.log('Content from TinyMCE:', content);
     // Handle content received from TinyMCE editor here
   };
 
@@ -42,8 +43,8 @@ const DetailBelajar = () => {
         <WebView
           style={{ padding: 16 }}
           ref={webviewRef}
-          originWhitelist={["*"]}
-          source={{ html: htmlContent, headers: { Referer: "Origin" } }}
+          originWhitelist={['*']}
+          source={{ html: htmlContent, headers: { Referer: 'Origin' } }}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           onMessage={handleMessage}

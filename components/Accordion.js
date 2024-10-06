@@ -1,10 +1,11 @@
-import { Ionicons } from "@expo/vector-icons";
-import { Box, HStack, Icon } from "native-base";
-import React, { useContext, useState } from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
-import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated";
-import { ColorContext } from "../contexts/ColorContext";
-import Cext from "./Cext";
+import { Ionicons } from '@expo/vector-icons';
+import { Box, HStack, Icon } from 'native-base';
+import React, { useContext, useState } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeIn, FadeOut, Layout } from 'react-native-reanimated';
+
+import Cext from './Cext';
+import { ColorContext } from '../contexts/ColorContext';
 
 const AccordionItem = ({ item, children }) => {
   const { colors } = useContext(ColorContext);
@@ -26,13 +27,13 @@ const AccordionItem = ({ item, children }) => {
       <TouchableOpacity
         onPress={() => setExpanded(!expanded)}
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           padding: 10,
         }}
       >
-        <HStack alignItems={"center"}>
+        <HStack alignItems={'center'}>
           <Icon
             as={Ionicons}
             name="briefcase"
@@ -44,7 +45,7 @@ const AccordionItem = ({ item, children }) => {
           </Cext>
         </HStack>
         <Icon
-          name={expanded ? "chevron-up" : "chevron-down"}
+          name={expanded ? 'chevron-up' : 'chevron-down'}
           as={Ionicons}
           size={8}
         />
@@ -70,11 +71,11 @@ const AnimatedAccordionList = ({ data }) => {
             <HStack
               flex={1}
               bg={colors.accent}
-              alignItems={"center"}
+              alignItems={'center'}
               py={2}
-              borderRadius={"xl"}
+              borderRadius={'xl'}
               mt={2}
-              justifyContent={"center"}
+              justifyContent={'center'}
             >
               <Icon as={Ionicons} name="repeat" color="white" size={8} />
               <Cext bold color="white" ml={2} fontSize={18}>

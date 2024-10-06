@@ -1,17 +1,27 @@
-import { FontAwesome6 } from "@expo/vector-icons";
-import LottieView from "lottie-react-native";
-import { Center, HStack, Icon, Stack } from "native-base";
-import React, { useContext, useRef, useState } from "react";
-import PagerView from "react-native-pager-view";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Cext from "../components/Cext";
-import Cutton from "../components/Cutton";
-import { ColorContext } from "../contexts/ColorContext";
+import { FontAwesome6 } from '@expo/vector-icons';
+import axios from 'axios';
+import LottieView from 'lottie-react-native';
+import { Center, HStack, Icon, Stack } from 'native-base';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import PagerView from 'react-native-pager-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import Cext from '../components/Cext';
+import Cutton from '../components/Cutton';
+import { AuthContext } from '../contexts/AuthContext';
+import { ColorContext } from '../contexts/ColorContext';
+import { ConfigContext } from '../contexts/ConfigContext';
+import useHttpHelper from '../helper/httpHelp';
 
 const Preexam = ({ navigation, route }) => {
   const { tit } = route.params;
+  const { POST } = useHttpHelper();
+  const { authState } = useContext(AuthContext);
   const { colors } = useContext(ColorContext);
+  const { config } = useContext(ConfigContext);
   const pagerRef = useRef(null); // Create a ref for the PagerView
+  const [listSoal, setListSoal] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(0);
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
@@ -22,6 +32,34 @@ const Preexam = ({ navigation, route }) => {
       pagerRef.current.setPage(currentPage + 1); // Navigate to the next page
     }
   };
+
+  useEffect(() => {
+    console.log('a');
+    axios({
+      method: 'POST',
+      url: config.url + '/api/soal/halaman',
+      headers: {
+        Authorization: 'Bearer ' + authState.userToken,
+        'Content-Type': '	application/json',
+      },
+    })
+      .then((v) => {
+        console.log(v);
+
+        if (v.data?.status === 'success') {
+          setListSoal(v.data.data);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {
+        console.log('final');
+      });
+    return () => {
+      // Cleanup code (if needed)
+    };
+  }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.primary, flex: 1 }}>
@@ -42,7 +80,7 @@ const Preexam = ({ navigation, route }) => {
               height: 200,
             }}
             // Find more Lottie files at https://lottiefiles.com/featured
-            source={require("../assets/images/exam.json")}
+            source={require('../assets/images/exam.json')}
           />
           <Cext color="white" fontSize={16} textAlign="justify" mx={4}>
             Velit commodo ut ipsum voluptate qui eiusmod deserunt adipisicing eu
@@ -60,51 +98,51 @@ const Preexam = ({ navigation, route }) => {
           flex={1}
           key={2}
           p={4}
-          alignItems={"center"}
-          justifyContent={"center"}
+          alignItems={'center'}
+          justifyContent={'center'}
         >
           <Cext color="white" black fontSize={20} mb={4}>
             PERHATIAN
           </Cext>
 
           <Stack space={4}>
-            <HStack space={4} mx={8} alignItems={"center"}>
+            <HStack space={4} mx={8} alignItems={'center'}>
               <Icon
                 as={FontAwesome6}
-                color={"white"}
+                color={'white'}
                 name="phone-slash"
                 size={10}
               />
-              <Cext color={"white"} flexShrink={1}>
+              <Cext color={'white'} flexShrink={1}>
                 Dolore nisi labore elit cupidatat est cupidatat est tempor sint
                 tempor enim laborum proident. Irure sint esse sunt ut minim.
               </Cext>
             </HStack>
-            <HStack space={4} mx={8} alignItems={"center"}>
-              <Icon as={FontAwesome6} color={"white"} name="signal" size={10} />
-              <Cext color={"white"} flexShrink={1}>
+            <HStack space={4} mx={8} alignItems={'center'}>
+              <Icon as={FontAwesome6} color={'white'} name="signal" size={10} />
+              <Cext color={'white'} flexShrink={1}>
                 Ea sit esse aute amet excepteur dolor ea amet aute commodo.
               </Cext>
             </HStack>
-            <HStack space={4} mx={8} alignItems={"center"}>
+            <HStack space={4} mx={8} alignItems={'center'}>
               <Icon
                 as={FontAwesome6}
-                color={"white"}
+                color={'white'}
                 name="envelope"
                 size={10}
               />
-              <Cext color={"white"} flexShrink={1}>
+              <Cext color={'white'} flexShrink={1}>
                 Cupidatat aliquip deserunt sint voluptate qui.
               </Cext>
             </HStack>
-            <HStack space={4} mx={8} alignItems={"center"}>
+            <HStack space={4} mx={8} alignItems={'center'}>
               <Icon
                 as={FontAwesome6}
-                color={"white"}
+                color={'white'}
                 name="clock-rotate-left"
                 size={10}
               />
-              <Cext color={"white"} flexShrink={1}>
+              <Cext color={'white'} flexShrink={1}>
                 Magna anim consectetur culpa id do ex laborum minim do
                 incididunt fugiat velit.
               </Cext>
@@ -114,7 +152,12 @@ const Preexam = ({ navigation, route }) => {
             mt={12}
             bg={colors.accent}
             title="Ok. Mulai"
-            onPress={() => navigation.replace("DetailLatihan", { tit: tit })}
+            onPress={() =>
+              navigation.replace('DetailLatihan', {
+                tit: tit,
+                listSoal: listSoal,
+              })
+            }
           />
         </Stack>
       </PagerView>

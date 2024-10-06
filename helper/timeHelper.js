@@ -1,16 +1,16 @@
-import * as SecureStore from "expo-secure-store";
-import { useEffect, useState } from "react";
-import { AppState } from "react-native";
+import * as SecureStore from 'expo-secure-store';
+import { useEffect, useState } from 'react';
+import { AppState } from 'react-native';
 
 const parseTimeLeft = (timeLeft) => {
-  const [minutes, seconds] = timeLeft.split(":").map(Number);
+  const [minutes, seconds] = timeLeft.split(':').map(Number);
   return minutes * 60 + seconds;
 };
 
 const formatTimeLeft = (totalSeconds) => {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
 export const useCountdownTimer = () => {
@@ -20,7 +20,7 @@ export const useCountdownTimer = () => {
   // Load the initial time left from SecureStore
   useEffect(() => {
     const loadTimeLeft = async () => {
-      const savedTime = await SecureStore.getItemAsync("timeLeft");
+      const savedTime = await SecureStore.getItemAsync('timeLeft');
       if (savedTime) {
         setTimeLeft(parseTimeLeft(savedTime));
       }
@@ -44,19 +44,19 @@ export const useCountdownTimer = () => {
 
   useEffect(() => {
     const handleAppStateChange = async (nextAppState) => {
-      if (appState.match(/inactive|background/) && nextAppState === "active") {
-        const savedTime = await SecureStore.getItemAsync("timeLeft");
+      if (appState.match(/inactive|background/) && nextAppState === 'active') {
+        const savedTime = await SecureStore.getItemAsync('timeLeft');
         if (savedTime) {
           setTimeLeft(parseTimeLeft(savedTime));
         }
       } else if (nextAppState.match(/inactive|background/)) {
-        await SecureStore.setItemAsync("timeLeft", formatTimeLeft(timeLeft));
+        await SecureStore.setItemAsync('timeLeft', formatTimeLeft(timeLeft));
       }
       setAppState(nextAppState);
     };
 
     const subscription = AppState.addEventListener(
-      "change",
+      'change',
       handleAppStateChange
     );
 
@@ -68,7 +68,7 @@ export const useCountdownTimer = () => {
   // Save the time left when it changes
   useEffect(() => {
     const saveTimeLeft = async () => {
-      await SecureStore.setItemAsync("timeLeft", formatTimeLeft(timeLeft));
+      await SecureStore.setItemAsync('timeLeft', formatTimeLeft(timeLeft));
     };
 
     saveTimeLeft();

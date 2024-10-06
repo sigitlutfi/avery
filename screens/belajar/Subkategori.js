@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
 import {
   Box,
   FlatList,
@@ -7,12 +7,13 @@ import {
   Pressable,
   ScrollView,
   Stack,
-} from "native-base";
-import React, { useContext } from "react";
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import Headering from "../../components/Headering";
-import { ColorContext } from "../../contexts/ColorContext";
+} from 'native-base';
+import React, { useContext } from 'react';
+
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import Headering from '../../components/Headering';
+import { ColorContext } from '../../contexts/ColorContext';
 
 const SubKategori = ({ navigation, route }) => {
   const { item } = route.params;
@@ -30,21 +31,21 @@ const SubKategori = ({ navigation, route }) => {
             <FlatList
               data={[
                 {
-                  name: "Materi tipe 1",
+                  name: 'Materi tipe 1',
                   detail:
-                    "Culpa do adipisicing eiusmod nulla dolor nostrud non adipisicing minim commodo cupidatat Lorem labore. Aliqua adipisicing nulla ea laborum mollit irure incididunt velit. Aliquip veniam eu deserunt exercitation in minim est ut laborum officia consectetur nulla occaecat. Labore commodo nisi reprehenderit nostrud est ea nisi.",
+                    'Culpa do adipisicing eiusmod nulla dolor nostrud non adipisicing minim commodo cupidatat Lorem labore. Aliqua adipisicing nulla ea laborum mollit irure incididunt velit. Aliquip veniam eu deserunt exercitation in minim est ut laborum officia consectetur nulla occaecat. Labore commodo nisi reprehenderit nostrud est ea nisi.',
                   open: false,
                 },
                 {
-                  name: "Materi tipe 2",
+                  name: 'Materi tipe 2',
                   detail:
-                    "Nulla aliquip voluptate nulla sunt veniam esse nulla dolore ut nostrud nisi occaecat adipisicing. Aliquip sint laborum ut mollit Lorem cillum esse quis dolor commodo ad cillum eu sint. Enim duis commodo laborum cillum eu. Mollit laborum laboris nulla incididunt duis nisi Lorem. Mollit officia nostrud eiusmod velit sunt eiusmod enim id est excepteur sunt aliqua exercitation. Aliqua ea laboris quis aliquip ex nisi ad exercitation adipisicing eiusmod ex eiusmod in.",
+                    'Nulla aliquip voluptate nulla sunt veniam esse nulla dolore ut nostrud nisi occaecat adipisicing. Aliquip sint laborum ut mollit Lorem cillum esse quis dolor commodo ad cillum eu sint. Enim duis commodo laborum cillum eu. Mollit laborum laboris nulla incididunt duis nisi Lorem. Mollit officia nostrud eiusmod velit sunt eiusmod enim id est excepteur sunt aliqua exercitation. Aliqua ea laboris quis aliquip ex nisi ad exercitation adipisicing eiusmod ex eiusmod in.',
                   open: true,
                 },
                 {
-                  name: "Materi tipe 3",
+                  name: 'Materi tipe 3',
                   detail:
-                    "Do proident ipsum sunt consectetur duis. Aliqua eu laboris adipisicing adipisicing pariatur ullamco fugiat. Eu magna dolore consectetur ut mollit irure.",
+                    'Do proident ipsum sunt consectetur duis. Aliqua eu laboris adipisicing adipisicing pariatur ullamco fugiat. Eu magna dolore consectetur ut mollit irure.',
                   open: true,
                 },
               ]}
@@ -53,23 +54,23 @@ const SubKategori = ({ navigation, route }) => {
                   key={index}
                   onPress={() => {
                     if (item.open) {
-                      navigation.navigate("DetailBelajar");
+                      navigation.navigate('DetailBelajar');
                     } else {
-                      alert("Package locked");
+                      alert('Package locked');
                     }
                   }}
                 >
                   <HStack
-                    justifyContent={"space-between"}
+                    justifyContent={'space-between'}
                     key={index}
                     p={4}
-                    borderRadius={"2xl"}
-                    alignItems={"center"}
+                    borderRadius={'2xl'}
+                    alignItems={'center'}
                     bg={colors.box}
                     mb={3}
                     flex={1}
                   >
-                    <HStack alignItems={"center"} flex={1}>
+                    <HStack alignItems={'center'} flex={1}>
                       <Icon
                         as={Ionicons}
                         name="document-text"
@@ -83,9 +84,9 @@ const SubKategori = ({ navigation, route }) => {
 
                     <Icon
                       as={Ionicons}
-                      color={item.open ? colors.accent : "gray.500"}
+                      color={item.open ? colors.accent : 'gray.500'}
                       name={
-                        item.open ? "chevron-forward" : "lock-closed-outline"
+                        item.open ? 'chevron-forward' : 'lock-closed-outline'
                       }
                     />
                   </HStack>

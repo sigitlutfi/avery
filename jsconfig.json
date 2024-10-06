@@ -6,7 +6,14 @@
     "jsx": "react",
     "allowImportingTsExtensions": true,
     "strictNullChecks": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "paths": {
+      "@components": ["components/*"],
+      "@screens": ["screens/*"],
+      "@image": ["images/*"],
+      "@assets": ["assets/*"],
+      "@contexts": ["contexts/*"]
+    }
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

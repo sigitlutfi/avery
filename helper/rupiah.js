@@ -3,7 +3,7 @@ function formatRupiah(value) {
   const numberString = value.toString();
 
   // Split the string into the whole part and decimal part
-  const splitNumber = numberString.split(",");
+  const splitNumber = numberString.split(',');
 
   // Format the whole part with a dot as the thousands separator
   const sisa = splitNumber[0].length % 3;
@@ -12,17 +12,15 @@ function formatRupiah(value) {
 
   // Add the thousands separator
   if (ribuan) {
-    const separator = sisa ? "." : "";
-    rupiah += separator + ribuan.join(".");
+    const separator = sisa ? '.' : '';
+    rupiah += separator + ribuan.join('.');
   }
 
   // Append the decimal part or ",00" if none is provided
   rupiah =
-    splitNumber[1] !== undefined
-      ? rupiah + "," + splitNumber[1]
-      : rupiah + ",00";
+    splitNumber[1] !== undefined ? rupiah + ',' + splitNumber[1] : rupiah;
 
   // Add the "Rp." prefix
-  return "Rp. " + rupiah;
+  return 'Rp. ' + rupiah;
 }
 export default formatRupiah;

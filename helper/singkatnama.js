@@ -1,5 +1,5 @@
 function singkatnama(name) {
-  const nameParts = name.split(" ");
+  const nameParts = name.split(' ');
   if (nameParts.length < 3) {
     return name; // Return the original name if it's less than 3 parts
   }
@@ -12,7 +12,7 @@ function singkatnama(name) {
   const initials = nameParts
     .slice(2)
     .map((name) => name.charAt(0))
-    .join(".");
+    .join('.');
 
   return `${firstName} ${middleName} ${initials}.`;
 }

@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import {
   Box,
   Center,
@@ -10,41 +10,43 @@ import {
   ScrollView,
   Stack,
   Text,
-} from "native-base";
-import React, { useContext } from "react";
-import Board from "../../components/Board";
-import Cext from "../../components/Cext";
-import Headering from "../../components/Headering";
-import { AuthContext } from "../../contexts/AuthContext";
-import { ColorContext } from "../../contexts/ColorContext";
+} from 'native-base';
+import React, { useContext } from 'react';
+
+import Board from '../../components/Board';
+import Cext from '../../components/Cext';
+import Headering from '../../components/Headering';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ColorContext } from '../../contexts/ColorContext';
 
 const Profile = ({ navigation }) => {
   const { authState, signOut } = useContext(AuthContext);
+  console.log(authState);
   const { userData } = authState;
   const { colors } = useContext(ColorContext);
   return (
     <Board>
       <Headering
-        tit={"PROFILE"}
+        tit={'PROFILE'}
         gray
         right={
-          <Pressable px={2} onPress={() => navigation.navigate("Setting")}>
+          <Pressable px={2} onPress={() => navigation.navigate('Setting')}>
             <Icon
               as={Ionicons}
               name="settings-outline"
               size={8}
-              color={"white"}
+              color={'white'}
             />
           </Pressable>
         }
       />
 
       <ScrollView>
-        <Stack alignItems={"center"} space={1} mt={8}>
+        <Stack alignItems={'center'} space={1} mt={8}>
           <Box
-            alignItems={"center"}
-            position={"relative"}
-            justifyContent={"center"}
+            alignItems={'center'}
+            position={'relative'}
+            justifyContent={'center'}
           >
             <LinearGradient
               // Background Linear Gradient
@@ -54,12 +56,12 @@ const Profile = ({ navigation }) => {
               style={{ width: 120, height: 120, borderRadius: 60 }}
             />
             <Image
-              position={"absolute"}
+              position={'absolute'}
               source={{
-                uri: userData.pic,
+                uri: 'https://randomuser.me/api/portraits/women/8.jpg',
               }}
               alt=""
-              borderRadius={"full"}
+              borderRadius={'full'}
               style={{ width: 110, height: 110, borderRadius: 55 }}
             />
             <LinearGradient
@@ -72,19 +74,19 @@ const Profile = ({ navigation }) => {
                 width: 96,
                 height: 32,
                 borderRadius: 60,
-                position: "absolute",
+                position: 'absolute',
                 bottom: -16,
               }}
             >
               <Center flex={1}>
-                <Text color={"white"} bold>
+                <Text color={'white'} bold>
                   Akun PRO
                 </Text>
               </Center>
             </LinearGradient>
           </Box>
           <Cext bold fontSize={16} mt={6}>
-            {userData.nama}
+            {userData.name}
           </Cext>
           <HStack alignItems="center" space={2} mt={2}>
             <Cext fontSize={14}>{userData.email}</Cext>
@@ -92,19 +94,19 @@ const Profile = ({ navigation }) => {
           </HStack>
           <HStack alignItems="center" space={2}>
             <Cext fontSize={14} textAlign="center">
-              {userData.nohp}
+              {userData.hp}
             </Cext>
             <Pressable bg={colors.primary} px={3} py={1} borderRadius="full">
-              <Cext bold fontSize={8} color={"white"}>
+              <Cext bold fontSize={8} color={'white'}>
                 Verifikasi
               </Cext>
             </Pressable>
           </HStack>
           <Cext
-            textDecorationLine={"underline"}
+            textDecorationLine={'underline'}
             medium
             color={colors.textGray}
-            onPress={() => navigation.navigate("EditProfile")}
+            onPress={() => navigation.navigate('EditProfile')}
           >
             Selengkapnya
           </Cext>
@@ -113,13 +115,13 @@ const Profile = ({ navigation }) => {
             py={2}
             borderWidth={1}
             borderColor={colors.red}
-            borderRadius={"full"}
+            borderRadius={'full'}
             mt={6}
             onPress={() => signOut()}
           >
-            <HStack alignItems={"center"}>
-              <Icon as={Ionicons} name="log-out" color={"red.600"} mr={2} />
-              <Cext bold color={"red.600"} fontSize={12}>
+            <HStack alignItems={'center'}>
+              <Icon as={Ionicons} name="log-out" color={'red.600'} mr={2} />
+              <Cext bold color={'red.600'} fontSize={12}>
                 KELUAR
               </Cext>
             </HStack>
@@ -129,23 +131,23 @@ const Profile = ({ navigation }) => {
           <Cext black fontSize={18}>
             Paket
           </Cext>
-          <Center py={12} bg={colors.box} mt={2} borderRadius={"2xl"}>
+          <Center py={12} bg={colors.box} mt={2} borderRadius={'2xl'}>
             <Cext mb={2}>Belum ada paket aktif</Cext>
-            <Pressable onPress={() => navigation.replace("Keranjang")}>
+            <Pressable onPress={() => navigation.replace('Keranjang')}>
               <HStack
                 p={2}
                 bg={colors.pink}
-                borderRadius={"full"}
-                alignItems={"center"}
+                borderRadius={'full'}
+                alignItems={'center'}
                 space={2}
               >
                 <Icon
-                  color={"white"}
+                  color={'white'}
                   as={Ionicons}
                   name="add-circle"
                   size={8}
                 />
-                <Cext bold color={"white"}>
+                <Cext bold color={'white'}>
                   MULAI LANGGANAN
                 </Cext>
               </HStack>
@@ -157,39 +159,39 @@ const Profile = ({ navigation }) => {
             Histori
           </Cext>
           <ScrollView horizontal mt={2}>
-            <Center bg={"blue.600"} p={4} borderRadius={"2xl"}>
-              <Icon color={"white"} size={12} as={Ionicons} name="document" />
-              <Cext color={"white"} black fontSize={20}>
+            <Center bg={'blue.600'} p={4} borderRadius={'2xl'}>
+              <Icon color={'white'} size={12} as={Ionicons} name="document" />
+              <Cext color={'white'} black fontSize={20}>
                 Soal Dortm
               </Cext>
-              <Cext bold color={"white"}>
+              <Cext bold color={'white'}>
                 08/10
               </Cext>
-              <Cext color={"white"} width={24} numberOfLines={2} mt={2}>
+              <Cext color={'white'} width={24} numberOfLines={2} mt={2}>
                 Amet irure nisi voluptate et anim ex id ea eu laborum minim.
               </Cext>
             </Center>
-            <Center bg={colors.green} p={4} borderRadius={"2xl"} ml={4}>
-              <Icon color={"white"} size={12} as={Ionicons} name="document" />
-              <Cext color={"white"} black fontSize={20}>
+            <Center bg={colors.green} p={4} borderRadius={'2xl'} ml={4}>
+              <Icon color={'white'} size={12} as={Ionicons} name="document" />
+              <Cext color={'white'} black fontSize={20}>
                 Soal Leusa
               </Cext>
-              <Cext bold color={"white"}>
+              <Cext bold color={'white'}>
                 08/10
               </Cext>
-              <Cext color={"white"} width={24} numberOfLines={2} mt={2}>
+              <Cext color={'white'} width={24} numberOfLines={2} mt={2}>
                 Amet irure nisi voluptate et anim ex id ea eu laborum minim.
               </Cext>
             </Center>
-            <Center bg={"orange.600"} p={4} borderRadius={"2xl"} ml={4}>
-              <Icon color={"white"} size={12} as={Ionicons} name="document" />
-              <Cext color={"white"} black fontSize={20}>
+            <Center bg={'orange.600'} p={4} borderRadius={'2xl'} ml={4}>
+              <Icon color={'white'} size={12} as={Ionicons} name="document" />
+              <Cext color={'white'} black fontSize={20}>
                 Soal Fuzi
               </Cext>
-              <Cext bold color={"white"}>
+              <Cext bold color={'white'}>
                 08/10
               </Cext>
-              <Cext color={"white"} width={24} numberOfLines={2} mt={2}>
+              <Cext color={'white'} width={24} numberOfLines={2} mt={2}>
                 Amet irure nisi voluptate et anim ex id ea eu laborum minim.
               </Cext>
             </Center>
